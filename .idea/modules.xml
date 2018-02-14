@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ProjectS.iml" filepath="$PROJECT_DIR$/ProjectS.iml" />
+      <module fileurl="file://C:\Users\jsles\Desktop\Desktop\Wash U\Junior Year\Semester 2\437\project-s\ProjectS.iml" filepath="C:\Users\jsles\Desktop\Desktop\Wash U\Junior Year\Semester 2\437\project-s\ProjectS.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\jsles\Desktop\Desktop\Wash U\Junior Year\Semester 2\437\project-s\app\app.iml" filepath="C:\Users\jsles\Desktop\Desktop\Wash U\Junior Year\Semester 2\437\project-s\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project-s.iml" filepath="$PROJECT_DIR$/project-s.iml" />
     </modules>
   </component>
 </project>

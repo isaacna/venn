@@ -16,7 +16,6 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         TextView name = findViewById(R.id.name); //R.id.x refers to the textview with ID x
         name.setText(p.getFirstName() + " " + p.getLastName());
-//        TextView firstName = findViewById(R.id.textView);
         TextView bio = findViewById(R.id.bio);
         bio.setText(p.getBioInfo());
 

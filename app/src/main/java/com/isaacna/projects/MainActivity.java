@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -50,17 +51,28 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean showNext(Queue<Profile> profiles){
         if(profiles.size() > 0){
-            Profile toDisp = profiles.remove();
+            final Profile toDisp = profiles.remove();
 
             //add in code to display the profiles here
             ImageView img = findViewById(R.id.otherPic);
             img.setImageBitmap(toDisp.getProfilePic());
 
+            //set bio and name
             TextView otherName = findViewById(R.id.otherName);
             TextView otherBio = findViewById(R.id.otherBio);
 
             otherName.setText(toDisp.getFirstName() + " " + toDisp.getLastName());
             otherBio.setText(toDisp.getBioInfo());
+
+            //pass profile to expanded candidate screen
+            RelativeLayout rl = (RelativeLayout)findViewById(R.id.mainLayout);
+            rl.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, CandidateActivity.class);
+                    intent.putExtra("candidate", toDisp.getFirstName() + " " + toDisp.getLastName());
+                    startActivity(intent);
+                }
+            });
 
            return true;
         }

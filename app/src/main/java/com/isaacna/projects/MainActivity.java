@@ -88,15 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            Bitmap lesh = getBitmapFromAssets("leshem.png");
-            Bitmap nathan = getBitmapFromAssets("nathan.png");
-            Bitmap tyler = getBitmapFromAssets("senator.png");
-            Bitmap rohan = getBitmapFromAssets("rohan.png");
+        Bitmap lesh = getBitmapFromAssets("leshem.png");
+        Bitmap nathan = getBitmapFromAssets("nathan.png");
+        Bitmap tyler = getBitmapFromAssets("senator.png");
+        Bitmap rohan = getBitmapFromAssets("rohan.png");
 
-//
-//            ImageView img = findViewById(R.id.otherPic);
-//            img.setImageBitmap(b1);
-//
         profiles.add(new Profile("Jack", "Leshem", "Computer science legend. Melee God. Puff. TKE.", lesh));
         profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan));
         profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan));

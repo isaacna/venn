@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".CommunitiesActivity" />
-        <activity android:name=".MatchesActivity"></activity>
+        <activity android:name=".MatchesActivity" />
+        <activity android:name=".CandidateActivity"></activity>
     </application>
 
 </manifest>

@@ -51,6 +51,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:onClick="answerYes"
         android:text="Yes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,9 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="80dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/otherName"
@@ -81,7 +80,23 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:maxHeight="150dp"
+            android:minHeight="150dp"
+            android:scaleType="fitCenter"
             app:srcCompat="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/otherBio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/otherName"
+            android:layout_alignStart="@+id/otherName"
+            android:layout_below="@+id/otherPic"
+            android:layout_marginTop="44dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="TextView"
+            android:textAlignment="center" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

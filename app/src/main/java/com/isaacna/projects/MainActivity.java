@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
             Profile toDisp = profiles.remove();
 
             //add in code to display the profiles here
+            ImageView img = findViewById(R.id.otherPic);
+            img.setImageBitmap(toDisp.getProfilePic());
+
+            TextView otherName = findViewById(R.id.otherName);
+            TextView otherBio = findViewById(R.id.otherBio);
+
+            otherName.setText(toDisp.getFirstName() + " " + toDisp.getLastName());
+            otherBio.setText(toDisp.getBioInfo());
 
            return true;
         }
@@ -65,36 +74,27 @@ public class MainActivity extends AppCompatActivity {
         Queue<Profile> profiles = new LinkedList<Profile>(); //queue is an interface of linkedlist in java
 
 
-//        AssetManager assetManager = getAssets();
 
 
-//            File image = assetManager.open("leshem.png");
+            Bitmap lesh = getBitmapFromAssets("leshem.png");
+            Bitmap nathan = getBitmapFromAssets("nathan.png");
+            Bitmap tyler = getBitmapFromAssets("senator.png");
+            Bitmap rohan = getBitmapFromAssets("rohan.png");
 
-
-            // get input stream
-//            InputStream ims = getAssets().open("leshem.jpg");
 //
+//            ImageView img = findViewById(R.id.otherPic);
+//            img.setImageBitmap(b1);
 //
-//            Bitmap b1;
-//            b1 = BitmapFactory.decodeStream(ims);
-
-            Bitmap b1 = getBitmapFromAssets("leshem.png");
-//
-            ImageView img = findViewById(R.id.otherPic);
-            img.setImageBitmap(b1);
-            profiles.add(new Profile("Jack", "Leshem", "Computer science legend. Melee God. Puff. TKE.", b1));
-//
-
-
-        profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme."));
-        profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)"));
-        profiles.add(new Profile("Isaac", "Na", "Javascript frameworks are life!!"));
+        profiles.add(new Profile("Jack", "Leshem", "Computer science legend. Melee God. Puff. TKE.", lesh));
+        profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan));
+        profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan));
+        profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler));
         return profiles;
     }
 
 
 
-    public void answerYes() {
+    public void answerYes(View view) {
         //move to next profile
         showNext(swipes);
 
@@ -105,15 +105,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Bitmap getBitmapFromAssets(String fileName){
-        /*
-            AssetManager
-                Provides access to an application's raw asset files.
-        */
 
-        /*
-            public final AssetManager getAssets ()
-                Retrieve underlying AssetManager storage for these resources.
-        */
         AssetManager am = getAssets();
         InputStream is = null;
         try{

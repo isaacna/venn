@@ -21,7 +21,6 @@ public class CommunitiesActivity extends AppCompatActivity {
 
 
         List<String> l = new LinkedList<String>();
-//        List<TextView> textViewList = new LinkedList<TextView>();
         l.add("ssbm");
         l.add("workouts");
 

@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void viewCreate(View view){
+        Intent intent = new Intent(this, CreateActivity.class);
+        startActivity(intent);
+    }
+
     public boolean showNext(Queue<Profile> profiles){
         if(profiles.size() > 0){
             final Profile toDisp = profiles.remove();

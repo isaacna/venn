@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void viewProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtras(getIntent());
         startActivity(intent);
     }
 

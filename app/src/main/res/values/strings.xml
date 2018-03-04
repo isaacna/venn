@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Project S</string>
+    <string name="title_activity_create">Create</string>
+    <string name="title_activity_first">FirstActivity</string>
 </resources>

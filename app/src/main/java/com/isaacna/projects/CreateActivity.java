@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 public class CreateActivity extends Activity {
 
@@ -16,7 +17,23 @@ public class CreateActivity extends Activity {
     public void viewMain(View view){
         Intent intent = new Intent(this, MainActivity.class);
         String s = "y";
+
+        String first; String last; String bio;
+
+        EditText editText = (EditText) findViewById(R.id.nameText);
+        first = editText.getText().toString();
+
+        editText = (EditText) findViewById(R.id.lastText);
+        last = editText.getText().toString();
+
+        editText = (EditText) findViewById(R.id.bioText);
+        bio = editText.getText().toString();
+
+        intent.putExtra("first", first);
+        intent.putExtra("last", last);
+        intent.putExtra("bio", bio);
         intent.putExtra("happened",s);
+
         startActivity(intent);
     }
 //

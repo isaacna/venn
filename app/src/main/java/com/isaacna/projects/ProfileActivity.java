@@ -10,7 +10,15 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Profile p = new Profile("Jack", "Leshem", "I watched a video on it");
+        Intent intent = getIntent();
+        Profile p;
+        if(intent.hasExtra("first")&&intent.hasExtra("last")&&intent.hasExtra("bio")){
+            p = new Profile(intent.getStringExtra("first"), intent.getStringExtra("last"), intent.getStringExtra("bio"));
+        }
+        else {
+            p = new Profile("Jack", "Leshem", "I watched a video on it");
+        }
+
         //Intent intent = new Intent(this, p);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);

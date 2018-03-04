@@ -16,6 +16,7 @@ public class Profile implements Person{
     private String lastName;
     private String bioInfo;
     private Bitmap profilePic;
+    private String whichCommunity;
 
     private Set<Community> communities;
 
@@ -23,10 +24,11 @@ public class Profile implements Person{
     public Profile(){
 
     }
-    public Profile(String first, String last, String bio){
+    public Profile(String first, String last, String bio, String community){
         firstName = first;
         lastName = last;
         bioInfo = bio;
+        whichCommunity= community;
 
         communities = new HashSet<Community>();
 
@@ -35,11 +37,12 @@ public class Profile implements Person{
          */
     }
     
-    public Profile(String first, String last, String bio, Bitmap pic){
+    public Profile(String first, String last, String bio, Bitmap pic, String community){
         firstName = first;
         lastName = last;
         bioInfo = bio;
         profilePic = pic;
+        whichCommunity = community;
 
         communities = new HashSet<Community>();
 
@@ -58,7 +61,7 @@ public class Profile implements Person{
         return candidates;
     }
 
-    public Queue<Candidate> getCanddidates(Community onlyThisOne){
+    public Queue<Candidate> getCandidates(Community onlyThisOne){
         Queue<Candidate> candidates = new LinkedList<Candidate>();
         candidates.addAll(onlyThisOne.getMembers());
         return candidates;
@@ -96,6 +99,7 @@ public class Profile implements Person{
     public String getBioInfo(){
         return bioInfo;
     }
+    public String getWhichCommunity() { return whichCommunity;}
     public Bitmap getProfilePic() {return profilePic;}
 
 }

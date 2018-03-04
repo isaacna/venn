@@ -72,12 +72,15 @@ public class MainActivity extends AppCompatActivity {
             ImageView img = findViewById(R.id.otherPic);
             img.setImageBitmap(toDisp.getProfilePic());
 
-            //set bio and name
+            //set bio and name and community
             TextView otherName = findViewById(R.id.otherName);
             TextView otherBio = findViewById(R.id.otherBio);
+//            TextView otherCommunity = findViewById(R.id.otherCommunity);
 
-            otherName.setText(toDisp.getFirstName() + " " + toDisp.getLastName());
+            String nameAndBio = toDisp.getFirstName() + " " + toDisp.getLastName() + ": " + toDisp.getWhichCommunity();
+            otherName.setText(nameAndBio);
             otherBio.setText(toDisp.getBioInfo());
+//            otherCommunity.setText(toDisp.getWhichCommunity());
 
             //pass profile to expanded candidate screen
             RelativeLayout rl = (RelativeLayout)findViewById(R.id.mainLayout);
@@ -108,10 +111,10 @@ public class MainActivity extends AppCompatActivity {
         Bitmap tyler = getBitmapFromAssets("senator.png");
         Bitmap rohan = getBitmapFromAssets("rohan.png");
 
-        profiles.add(new Profile("Jack", "Leshem", "Computer science legend. Melee God. Puff. TKE.", lesh));
-        profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan));
-        profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan));
-        profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler));
+        profiles.add(new Profile("Jack", "Leshem", "Computer science legend. Melee God. Puff. TKE.", lesh,"SSBM"));
+        profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan,"Workouts"));
+        profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan, "Workouts"));
+        profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler, "SSBM"));
         return profiles;
     }
 

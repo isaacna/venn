@@ -19,7 +19,21 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".CommunitiesActivity" />
         <activity android:name=".MatchesActivity" />
-        <activity android:name=".CandidateActivity"></activity>
+        <activity android:name=".CandidateActivity" />
+        <!--<activity-->
+            <!--android:name=".Create"-->
+            <!--android:label="@string/title_activity_create"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <activity android:name=".CreateActivity" />
+        <activity
+            android:name=".FirstActivity"
+            android:label="@string/title_activity_first"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".oneMatchActivity"
+            android:label="@string/title_activity_one_match"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

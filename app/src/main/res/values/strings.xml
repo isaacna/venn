@@ -2,4 +2,6 @@
     <string name="app_name">Project S</string>
     <string name="title_activity_create">Create</string>
     <string name="title_activity_first">FirstActivity</string>
+    <string name="title_activity_one">one</string>
+    <string name="title_activity_one_match">oneMatchActivity</string>
 </resources>

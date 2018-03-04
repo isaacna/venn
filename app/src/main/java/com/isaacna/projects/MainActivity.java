@@ -29,12 +29,17 @@ public class MainActivity extends AppCompatActivity {
 
     Queue<Profile> swipes; //global
 
+    boolean isMatch;
+    String matchName;
+    String matchCom;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+        isMatch = false;
 
         if(getIntent().hasExtra("happened")){
             String c = getIntent().getStringExtra("happened");
@@ -82,6 +87,21 @@ public class MainActivity extends AppCompatActivity {
             otherBio.setText(toDisp.getBioInfo());
 //            otherCommunity.setText(toDisp.getWhichCommunity());
 
+            if(toDisp.getFirstName().equals("Nathan")){
+                isMatch = true;
+                matchName = "Nathan";
+                matchCom = "Lifting";
+            }
+            else if(toDisp.getFirstName().equals("Rohan")){
+                isMatch = true;
+                matchName = "Rohan";
+                matchCom = "SSBM";
+            }
+            else{
+                isMatch = false;
+            }
+
+
             //pass profile to expanded candidate screen
             RelativeLayout rl = (RelativeLayout)findViewById(R.id.mainLayout);
             rl.setOnClickListener(new View.OnClickListener(){
@@ -121,13 +141,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void answerYes(View view) {
-        //move to next profile
+        if(isMatch){
+            Intent intent = new Intent(this, oneMatchActivity.class);
+            intent.putExtra("name", matchName);
+            intent.putExtra("community", matchCom);
+            startActivity(intent);
+        }
         showNext(swipes);
 
     }
 
-    public void answerNo() {
-
+    public void answerNo(View view) {
+        showNext(swipes);
     }
 
     private Bitmap getBitmapFromAssets(String fileName){

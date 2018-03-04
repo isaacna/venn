@@ -32,8 +32,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_first);
+
+        if(getIntent().hasExtra("happened")){
+            String c = getIntent().getStringExtra("happened");
+            if (c.equals("y")){
+                setContentView(R.layout.activity_main);
+            }
+        }
+
         swipes=getSwipes();
 
 //        showNext(swipes);

@@ -15,7 +15,8 @@ public class CreateActivity extends Activity {
     }
 
     public void viewMain(View view){
-        Intent intent = new Intent(this, MainActivity.class);
+//        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, JoinCommActivity.class);
         String s = "y";
 
         String first; String last; String bio;

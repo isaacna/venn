@@ -45,10 +45,12 @@ public class MainActivity extends AppCompatActivity {
             String c = getIntent().getStringExtra("happened");
             if (c.equals("y")){
                 setContentView(R.layout.activity_main);
+                swipes=getSwipes();
+                showNext(swipes);
             }
         }
 
-        swipes=getSwipes();
+
 
 //        showNext(swipes);
     }
@@ -123,15 +125,10 @@ public class MainActivity extends AppCompatActivity {
     public Queue<Profile> getSwipes(){
         Queue<Profile> profiles = new LinkedList<Profile>(); //queue is an interface of linkedlist in java
 
-
-
-
-        Bitmap lesh = getBitmapFromAssets("leshem.png");
         Bitmap nathan = getBitmapFromAssets("nathan.png");
         Bitmap tyler = getBitmapFromAssets("senator.png");
         Bitmap rohan = getBitmapFromAssets("rohan.png");
 
-        profiles.add(new Profile("Jack", "Leshem", "Computer science legend. Melee God. Puff. TKE.", lesh,"SSBM"));
         profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan,"Workouts"));
         profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan, "Workouts"));
         profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler, "SSBM"));

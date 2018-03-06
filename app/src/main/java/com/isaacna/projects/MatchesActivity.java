@@ -15,5 +15,18 @@ public class MatchesActivity extends AppCompatActivity {
 
         TextView community = findViewById(R.id.matchCommunity);
         community.setText(intent.getStringExtra("community")); //display name of community the match page is for
+
+        TextView match1 = findViewById(R.id.person1);
+        TextView match2 = findViewById(R.id.person2);
+
+        if(community.equals("Hockey")) {
+            match1.setText("Tyler");
+            match2.setText("Rohan");
+        }
+
+        else {
+            match1.setText("Nathan");
+            match2.setText("Isaac");
+        }
     }
 }

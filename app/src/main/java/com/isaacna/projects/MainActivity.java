@@ -100,12 +100,22 @@ public class MainActivity extends AppCompatActivity {
             if(toDisp.getFirstName().equals("Nathan")){
                 isMatch = true;
                 matchName = "Nathan";
-                matchCom = "Lifting";
+                matchCom = "Workouts";
             }
             else if(toDisp.getFirstName().equals("Rohan")){
                 isMatch = true;
                 matchName = "Rohan";
-                matchCom = "SSBM";
+                matchCom = "Hockey";
+            }
+            else if(toDisp.getFirstName().equals("Tyler")){
+                isMatch = true;
+                matchName = "Rohan";
+                matchCom = "Hockey";
+            }
+            else if(toDisp.getFirstName().equals("Isaac")){
+                isMatch = true;
+                matchName = "Rohan";
+                matchCom = "Workouts";
             }
             else{
                 isMatch = false;
@@ -136,19 +146,23 @@ public class MainActivity extends AppCompatActivity {
         Bitmap nathan = getBitmapFromAssets("nathan.png");
         Bitmap tyler = getBitmapFromAssets("senator.png");
         Bitmap rohan = getBitmapFromAssets("rohan.png");
+        Bitmap chris = getBitmapFromAssets("chris.png");
+        Bitmap isaac = getBitmapFromAssets("isaac.png");
+        Bitmap jaryd = getBitmapFromAssets("jaryd.png");
+        Bitmap chauncey = getBitmapFromAssets("chauncey.png");
+        Bitmap john = getBitmapFromAssets("john.png");
 
-        profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan,"Workouts"));
+
+
+        profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan,"Hockey"));
         profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan, "Workouts"));
-        profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler, "SSBM"));
-        profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan,"Workouts"));
-        profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan, "Workouts"));
-        profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler, "SSBM"));
-        profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan,"Workouts"));
-        profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan, "Workouts"));
-        profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler, "SSBM"));
-        profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan,"Workouts"));
-        profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan, "Workouts"));
-        profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler, "SSBM"));
+        profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler, "Hockey"));
+        profiles.add(new Profile("Chris", "Chow", "Welcome to the chow down.", chris,"Workouts"));
+        profiles.add(new Profile("John", "Newton", "I'm good at poems", john, "Workouts"));
+        profiles.add(new Profile("Chauncey", "Hill", "Falco is 3rd on the tier list", chauncey, "Hockey"));
+        profiles.add(new Profile("Isaac", "Na", "Falco is 4th on the tier list", isaac,"Workouts"));
+        profiles.add(new Profile("Jaryd", "Huffman", "Semper Fi", jaryd, "Workouts"));
+
         return profiles;
     }
 
@@ -161,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("name", matchName);
             intent.putExtra("community", matchCom);
             intent.putExtra("place",occurences);
+            intent.putExtras(getIntent());
             startActivity(intent);
         }
         showNext(swipes);

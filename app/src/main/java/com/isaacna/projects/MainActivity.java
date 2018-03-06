@@ -25,10 +25,9 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
 
+    int occurences;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-
     Queue<Profile> swipes; //global
-
     boolean isMatch;
     String matchName;
     String matchCom;
@@ -44,15 +43,24 @@ public class MainActivity extends AppCompatActivity {
         if(getIntent().hasExtra("happened")){
             String c = getIntent().getStringExtra("happened");
             if (c.equals("y")){
-                setContentView(R.layout.activity_main);
-                swipes=getSwipes();
-                showNext(swipes);
+                if(getIntent().hasExtra("place")){
+                    setContentView(R.layout.activity_main);
+                    occurences = getIntent().getIntExtra("place", 0);
+                    swipes = getSwipes();
+                    for(int i = 0; i < occurences; ++i){
+                        showNext(swipes);
+                    }
+
+                }
+                else {
+                    System.out.println("hello" + "\n fail \n\n\n fail \n\n" + occurences);
+                    setContentView(R.layout.activity_main);
+                    swipes = getSwipes();
+                    showNext(swipes);
+                    occurences = 1;
+                }
             }
         }
-
-
-
-//        showNext(swipes);
     }
 
     public void viewProfile(View view) {
@@ -132,6 +140,15 @@ public class MainActivity extends AppCompatActivity {
         profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan,"Workouts"));
         profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan, "Workouts"));
         profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler, "SSBM"));
+        profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan,"Workouts"));
+        profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan, "Workouts"));
+        profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler, "SSBM"));
+        profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan,"Workouts"));
+        profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan, "Workouts"));
+        profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler, "SSBM"));
+        profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan,"Workouts"));
+        profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan, "Workouts"));
+        profiles.add(new Profile("Tyler", "Tran", "Life, Liberty, and the pursuit of schemes", tyler, "SSBM"));
         return profiles;
     }
 
@@ -139,17 +156,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void answerYes(View view) {
         if(isMatch){
+            ++occurences;
             Intent intent = new Intent(this, oneMatchActivity.class);
             intent.putExtra("name", matchName);
             intent.putExtra("community", matchCom);
+            intent.putExtra("place",occurences);
             startActivity(intent);
         }
         showNext(swipes);
+
 
     }
 
     public void answerNo(View view) {
         showNext(swipes);
+        ++occurences;
     }
 
     private Bitmap getBitmapFromAssets(String fileName){

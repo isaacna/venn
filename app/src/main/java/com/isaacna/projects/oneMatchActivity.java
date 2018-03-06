@@ -47,6 +47,7 @@ public class oneMatchActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.editMessage);
         String m = textView.getText().toString();
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtras(getIntent().getExtras());
         intent.putExtra("message", m);
         intent.putExtra("happened", "y");
         startActivity(intent);

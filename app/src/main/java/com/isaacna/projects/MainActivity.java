@@ -109,12 +109,12 @@ public class MainActivity extends AppCompatActivity {
             }
             else if(toDisp.getFirstName().equals("Tyler")){
                 isMatch = true;
-                matchName = "Rohan";
+                matchName = "Tyler";
                 matchCom = "Hockey";
             }
             else if(toDisp.getFirstName().equals("Isaac")){
                 isMatch = true;
-                matchName = "Rohan";
+                matchName = "Isaac";
                 matchCom = "Workouts";
             }
             else{
@@ -151,8 +151,7 @@ public class MainActivity extends AppCompatActivity {
         Bitmap jaryd = getBitmapFromAssets("jaryd.png");
         Bitmap chauncey = getBitmapFromAssets("chauncey.png");
         Bitmap john = getBitmapFromAssets("john.png");
-
-
+        Bitmap stock = getBitmapFromAssets("stock.png");
 
         profiles.add(new Profile("Rohan", "Pinto", "I'm essentially a walking meme.", rohan,"Hockey"));
         profiles.add(new Profile("Nathan", "Yee", "Member of the thousand pound club :-)", nathan, "Workouts"));
@@ -162,30 +161,38 @@ public class MainActivity extends AppCompatActivity {
         profiles.add(new Profile("Chauncey", "Hill", "Falco is 3rd on the tier list", chauncey, "Hockey"));
         profiles.add(new Profile("Isaac", "Na", "Falco is 4th on the tier list", isaac,"Workouts"));
         profiles.add(new Profile("Jaryd", "Huffman", "Semper Fi", jaryd, "Workouts"));
+        profiles.add(new Profile("We're out of people )", "", "", stock, ""));
 
         return profiles;
     }
-
-
 
     public void answerYes(View view) {
         if(isMatch){
             ++occurences;
             Intent intent = new Intent(this, oneMatchActivity.class);
+            intent.putExtras(getIntent());
+            if(intent.hasExtra("name") && intent.hasExtra("community")){
+                intent.removeExtra("name");
+                intent.removeExtra("community");
+            }
+            if(intent.hasExtra("place")){
+                intent.removeExtra("place");
+            }
             intent.putExtra("name", matchName);
             intent.putExtra("community", matchCom);
             intent.putExtra("place",occurences);
-            intent.putExtras(getIntent());
+
             startActivity(intent);
         }
-        showNext(swipes);
-
-
+       else{
+            ++occurences;
+            showNext(swipes);
+        }
     }
 
     public void answerNo(View view) {
-        showNext(swipes);
         ++occurences;
+        showNext(swipes);
     }
 
     private Bitmap getBitmapFromAssets(String fileName){

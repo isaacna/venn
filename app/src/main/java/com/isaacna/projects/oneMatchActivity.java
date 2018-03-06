@@ -32,22 +32,13 @@ public class oneMatchActivity extends AppCompatActivity {
             TextView name = findViewById(R.id.matchText); //R.id.x refers to the textview with ID x
             name.setText("Write a message to your match");
         }
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     public void sendMessage(View view){
         TextView textView = findViewById(R.id.editMessage);
         String m = textView.getText().toString();
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtras(getIntent().getExtras());
+        intent.putExtras(getIntent());
         intent.putExtra("message", m);
         intent.putExtra("happened", "y");
         startActivity(intent);

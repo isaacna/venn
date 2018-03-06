@@ -21,8 +21,8 @@ public class CommunitiesActivity extends AppCompatActivity {
 
 
         List<String> l = new LinkedList<String>();
-        l.add("ssbm");
-        l.add("workouts");
+        l.add("Hockey");
+        l.add("Workouts");
 
         int count = 0;
         for (String s : l) {

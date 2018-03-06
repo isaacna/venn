@@ -33,7 +33,8 @@
             android:name=".oneMatchActivity"
             android:label="@string/title_activity_one_match"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".JoinCommActivity"></activity>
+        <activity android:name=".JoinCommActivity" />
+        <activity android:name=".ChatActivity"></activity>
     </application>
 
 </manifest>

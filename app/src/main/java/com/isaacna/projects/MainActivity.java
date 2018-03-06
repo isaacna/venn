@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         profiles.add(new Profile("Chauncey", "Hill", "Falco is 3rd on the tier list", chauncey, "Hockey"));
         profiles.add(new Profile("Isaac", "Na", "Falco is 4th on the tier list", isaac,"Workouts"));
         profiles.add(new Profile("Jaryd", "Huffman", "Semper Fi", jaryd, "Workouts"));
-        profiles.add(new Profile("We're out of people )", "", "", stock, ""));
+        profiles.add(new Profile("No more people near you )", "", "", stock, ""));
 
         return profiles;
     }

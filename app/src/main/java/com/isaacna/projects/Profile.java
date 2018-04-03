@@ -1,6 +1,8 @@
 package com.isaacna.projects;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +27,7 @@ public class Profile implements Person{
     private int communityId;
     private int userId;
     private int answer;
+    private int swiperNum;
 
     private Set<Community> communities;
 
@@ -32,31 +35,36 @@ public class Profile implements Person{
     public Profile(){
 
     }
-    public Profile(String first, String last, String bio, String community, int community_id, int user_id){
+
+    //constructor for the logged in user
+    public Profile(String first, String last, String bio, String picSrc, int user_id){
         firstName = first;
         lastName = last;
         bioInfo = bio;
-        whichCommunity= community;
-
-        communities = new HashSet<Community>();
-        communityId = community_id;
+        profilePic = getBitmapFromURL(picSrc); //this causes problems
+//        communities = new HashSet<Community>();
+//        communityId = community_id;
         userId= user_id;
         /*
         Add in code here that queries for all of the communities
          */
     }
-    
-    public Profile(String first, String last, String bio, String picSrc, String community, int community_id, int user_id, int yesOrNo){
+
+    //constructor for other profiles
+    public Profile(String first, String last, String bio, String picSrc, String community, int community_id, int user_id, int yesOrNo, int swipernum){
         firstName = first;
         lastName = last;
         bioInfo = bio;
         profilePic = getBitmapFromURL(picSrc);
+
         whichCommunity = community;
 
-        communities = new HashSet<Community>();
+
+//        communities = new HashSet<Community>();
         communityId = community_id;
         userId= user_id;
         answer=yesOrNo; //what the profile answered to you
+        swiperNum = swipernum;
         /*
         Add in code here that queries for all of the communities
          */
@@ -96,6 +104,7 @@ public class Profile implements Person{
     public Bitmap getBitmapFromURL(String src) {
         try {
             URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/images/" + src);
+            System.out.println(url.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.connect();
@@ -131,5 +140,7 @@ public class Profile implements Person{
     public int getUserId() {return userId;}
     public int getCommunityId() {return communityId;}
     public int getAnswer() {return answer;}
+    public int getSwiperNum() { return swiperNum;}
+
 
 }

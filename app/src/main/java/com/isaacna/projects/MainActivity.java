@@ -49,29 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        isMatch = false;
-
-        /*if(getIntent().hasExtra("happened")){
-            String c = getIntent().getStringExtra("happened");
-            if (c.equals("y")){
-                if(getIntent().hasExtra("place")){
-                    setContentView(R.layout.activity_main);
-                    occurences = getIntent().getIntExtra("place", 0);
-                    swipes = getSwipes();
-                    for(int i = 0; i < occurences; ++i){
-                        showNext(swipes);
-                    }
-
-                }
-                else {
-                    System.out.println("hello" + "\n fail \n\n\n fail \n\n" + occurences);
-                    setContentView(R.layout.activity_main);
-                    swipes = getSwipes();
-                    showNext(swipes);
-                    occurences = 1;
-                }
-            }
-        }*/
 
         //if logged in
             //if swipes is empty
@@ -104,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void viewProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtras(getIntent());
+//        intent.putExtras(getIntent());
         startActivity(intent);
     }
 
@@ -179,8 +156,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void answerYes(View view) {
 
-
+        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),1,currentDisplayedProfile.getSwiperNum());
         if(currentDisplayedProfile.getAnswer()==1) { //candidate answered yes to you
+
             Intent intent = new Intent(this, oneMatchActivity.class);
 //            intent.putExtra(getIntent());
             startActivity(intent);
@@ -205,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void answerNo(View view) {
         //update swipes
+        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),0,currentDisplayedProfile.getSwiperNum());
         showNext(swipes);
     }
 
@@ -219,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
             return myBitmap;
         } catch (IOException e) {
-            // Log exception
             return null;
         }
     }
@@ -230,7 +208,6 @@ public class MainActivity extends AppCompatActivity {
 
         private Exception exception;
         String response = "";
-        //LinkedList<String> communitiesList = new LinkedList<>();
         StringBuilder result = new StringBuilder();
         public MainActivity activity;
 
@@ -283,9 +260,10 @@ public class MainActivity extends AppCompatActivity {
                     int userId = jsonobject.getInt("user_id");
                     int commId = jsonobject.getInt("comm_id");
                     String picture = jsonobject.getString("picture");
+                    int swiperNum = jsonobject.getInt("swiper_number");
                     int answer = -1;
                     try {
-                        if (jsonobject.get("candidate_ans") != null) {
+                        if (jsonobject.get("candidate_ans") != null) {//check if answer is null
                             answer = jsonobject.getInt("candidate_ans");
                         }
                     }
@@ -295,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
 
-                    Profile p = new Profile(firstName, lastName, bio, picture, community, commId, userId, answer);
+                    Profile p = new Profile(firstName, lastName, bio, picture, community, commId, userId, answer,swiperNum);
                     swipesTemp.add(p);
                     System.out.println("added the swipes " + p.getFirstName() + " " + swipesTemp.size());
                 }
@@ -321,6 +299,63 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    class UpdateSwipeTask extends AsyncTask<Integer, String, String> {
+
+        private Exception exception;
+        String response = "";
+        StringBuilder result = new StringBuilder();
+//        public MainActivity activity;
+
+        //this constructor is to pass in the communitiesactivity to access within onpostexecute
+//        public UpdateSwipeTask(MainActivity a) {
+//            this.activity = a;
+//        }
+
+        protected String doInBackground(Integer... params) {
+
+            try {
+                //int user_id = 1; //will later set to session variable
+                int user_id = params[0];
+                int comm_id = params[1];
+                int candidate_id = params[2];
+                int user_ans = params[3];
+                int swiper_num = params[4];
+                String u = "http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/updateSwipe.php?user_id=" + user_id +
+                        "&comm_id=" +comm_id + "&candidate_id="+ candidate_id + "&user_ans=" + user_ans + "&swiper_num=" + swiper_num;
+                URL url = new URL(u);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                String line;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+
+                while ((line = br.readLine()) != null) {
+                    result.append(line);
+                    response += result.toString();
+                    System.out.println(response);
+                    //communitiesList.add(result.toString());
+
+                }
+                br.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+
+
+
+
+        }
+
+
+    }
 
 
 }

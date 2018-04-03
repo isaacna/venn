@@ -18,8 +18,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class CommunitiesActivity extends AppCompatActivity {
 
@@ -82,6 +84,9 @@ public class CommunitiesActivity extends AppCompatActivity {
             //do stuff
 
             LinkedList<String> l = new LinkedList<String>();
+//            LinkedList<Map.Entry<Integer,String>> = new LinkedList<>();
+            HashMap<Integer, String> commIdAndName = new HashMap<Integer,String>();
+
             LinearLayout ln = (LinearLayout) findViewById(R.id.communities);
 
 
@@ -91,26 +96,36 @@ public class CommunitiesActivity extends AppCompatActivity {
                 System.out.println("success");
                 System.out.println(communitiesJson.toString());
 
-                //go through json array and add the name of each community to the linkedlist
+                //go through json array and add the id and name of each community to the map
                 for(int i=0; i < communitiesJson.length(); i++) {
                     JSONObject jsonobject = communitiesJson.getJSONObject(i);
                     String name = jsonobject.getString("name");
-                    l.add(name);
+                    int comm_id = jsonobject.getInt("comm_id");
+//                    l.add(name);
+                    commIdAndName.put(comm_id,name);
                 }
 
                 //add to linear layout and bind communities to button
-                for (String s : l) {
-                    final String s2= s; //make string final so it can be put in intent
+                for (int comm_id : commIdAndName.keySet()) {
+
+                    //need to make these final to put in intent
+                    final String comm_name = commIdAndName.get(comm_id);
+                    final int comm_id_final = comm_id;
+//                    final String s2= s; //make string final so it can be put in intent
+
+
                     Button community  = new Button(activity); //must pass in communitiesActivity from constructor
                     community.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                    community.setText(s); //add in name of community to button
+                    community.setText(comm_name); //add in name of community to button
 
 
                     community.setOnClickListener(new View.OnClickListener() { //bind function that sends to match page to button
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(CommunitiesActivity.this, MatchesActivity.class);
-                            intent.putExtra("community", s2); //pass in community to remember for that match page
+                            intent.putExtra("community", comm_name); //pass in community to remember for that match page
+                            intent.putExtra("comm_id", comm_id_final);
+
                             startActivity(intent);
                         }
                     });

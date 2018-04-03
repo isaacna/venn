@@ -1,11 +1,25 @@
 package com.isaacna.projects;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class MatchesActivity extends AppCompatActivity {
 
@@ -18,18 +32,21 @@ public class MatchesActivity extends AppCompatActivity {
         TextView community = findViewById(R.id.matchCommunity);
         community.setText(intent.getStringExtra("community")); //display name of community the match page is for
 
-        Button match1 = findViewById(R.id.person1);
-        Button match2 = findViewById(R.id.person2);
+        int comm_id = intent.getIntExtra("comm_id", -1); //return -1 if no comm_id passed
 
-        if(intent.getStringExtra("community").equals("Hockey")) {
-            match1.setText("Tyler");
-            match2.setText("Rohan");
-        }
-
-        else {
-            match1.setText("Nathan");
-            match2.setText("Isaac");
-        }
+        new RetrieveMatchesTask(this).execute(1,comm_id); //replace the 1 with the session user id
+//        Button match1 = findViewById(R.id.person1);
+//        Button match2 = findViewById(R.id.person2);
+//
+//        if(intent.getStringExtra("community").equals("Hockey")) {
+//            match1.setText("Tyler");
+//            match2.setText("Rohan");
+//        }
+//
+//        else {
+//            match1.setText("Nathan");
+//            match2.setText("Isaac");
+//        }
     }
 
     public void chatPerson(View view) {
@@ -38,4 +55,111 @@ public class MatchesActivity extends AppCompatActivity {
         intent.putExtra("matchName", name);
         startActivity(intent);
     }
+
+
+
+    class RetrieveMatchesTask extends AsyncTask<Integer, String, String> {
+
+        private Exception exception;
+        String response = "";
+        StringBuilder result = new StringBuilder();
+        public MatchesActivity activity;
+
+        //this constructor is to pass in the communitiesactivity to access within onpostexecute
+        public RetrieveMatchesTask(MatchesActivity a) {
+            this.activity = a;
+        }
+
+        protected String doInBackground(Integer... params) {
+
+            try {
+                int user_id = params[0]; //get my user_id from params
+                int comm_id = params[1]; //get comm_id from params
+
+                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/displayMatches.php?user_id=" + user_id + "&comm_id=" + comm_id);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                //System.out.println(urls);
+                String line;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+
+                while ((line = br.readLine()) != null) {
+                    result.append(line);
+                    response += result.toString();
+                    System.out.println(response);
+
+                }
+                br.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //do stuff
+
+            LinkedList<String> l = new LinkedList<String>();
+//            LinkedList<Map.Entry<Integer,String>> = new LinkedList<>();
+            HashMap<Integer, String> matchedIdAndName = new HashMap<Integer,String>(); //hashmap containing the match's id and name
+
+            LinearLayout ln = (LinearLayout) findViewById(R.id.matchesLayout);
+
+
+            try {
+                //response is a json array
+                JSONArray matchesJson = new JSONArray(result);
+                System.out.println(matchesJson.toString());
+
+                //go through json array and add the id and name of each match to the map
+                for(int i=0; i < matchesJson.length(); i++) {
+                    JSONObject jsonobject = matchesJson.getJSONObject(i);
+                    String fullName = (jsonobject.getString("first_name") + " " + jsonobject.getString("last_name")); //concatenate names
+                    int user_id = jsonobject.getInt("user_id");
+                    matchedIdAndName.put(user_id,fullName);
+                }
+
+                //add to linear layout and bind communities to button
+                for (int match_id : matchedIdAndName.keySet()) {
+
+                    //need to make these final to put in intent
+                    final String match_name = matchedIdAndName.get(match_id);
+                    final int match_id_final = match_id;
+                    System.out.println(match_name);
+//                    final String s2= s; //make string final so it can be put in intent
+
+
+                    Button match  = new Button(activity); //must pass in communitiesActivity from constructor
+                    match.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    match.setText(match_name); //add in name of community to button
+
+
+                    match.setOnClickListener(new View.OnClickListener() { //bind function that sends to match page to button
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MatchesActivity.this, ChatActivity.class);
+                            intent.putExtra("community", match_name); //pass in community to remember for that match page
+                            intent.putExtra("comm_id", match_id_final);
+                            startActivity(intent);
+                        }
+                    });
+
+                    ln.addView(match); //add the community
+                }
+
+
+            }
+            catch (JSONException e){
+                System.out.println(e);
+            }
+            // tv.setText(response);
+        }
+
+
+
 }
+
+    }

@@ -1,6 +1,11 @@
 package com.isaacna.projects;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -17,6 +22,8 @@ public class Profile implements Person{
     private String bioInfo;
     private Bitmap profilePic;
     private String whichCommunity;
+    private int communityId;
+    private int userId;
 
     private Set<Community> communities;
 
@@ -24,27 +31,30 @@ public class Profile implements Person{
     public Profile(){
 
     }
-    public Profile(String first, String last, String bio, String community){
+    public Profile(String first, String last, String bio, String community, int community_id, int user_id){
         firstName = first;
         lastName = last;
         bioInfo = bio;
         whichCommunity= community;
 
         communities = new HashSet<Community>();
-
+        communityId = community_id;
+        userId= user_id;
         /*
         Add in code here that queries for all of the communities
          */
     }
     
-    public Profile(String first, String last, String bio, Bitmap pic, String community){
+    public Profile(String first, String last, String bio, String picSrc, String community, int community_id, int user_id){
         firstName = first;
         lastName = last;
         bioInfo = bio;
-        profilePic = pic;
+        profilePic = getBitmapFromURL(picSrc);
         whichCommunity = community;
 
         communities = new HashSet<Community>();
+        communityId = community_id;
+        userId= user_id;
 
         /*
         Add in code here that queries for all of the communities
@@ -81,6 +91,22 @@ public class Profile implements Person{
         return matches;
     }
 
+
+    public Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/images/" + src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            // Log exception
+            return null;
+        }
+    }
+
     public void setFirstName(String s){
         this.firstName = s;
     }
@@ -101,5 +127,7 @@ public class Profile implements Person{
     }
     public String getWhichCommunity() { return whichCommunity;}
     public Bitmap getProfilePic() {return profilePic;}
+    public int getUserId() {return userId;}
+    public int getCommunityId() {return communityId;}
 
 }

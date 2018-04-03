@@ -24,6 +24,7 @@ public class Profile implements Person{
     private String whichCommunity;
     private int communityId;
     private int userId;
+    private int answer;
 
     private Set<Community> communities;
 
@@ -45,7 +46,7 @@ public class Profile implements Person{
          */
     }
     
-    public Profile(String first, String last, String bio, String picSrc, String community, int community_id, int user_id){
+    public Profile(String first, String last, String bio, String picSrc, String community, int community_id, int user_id, int yesOrNo){
         firstName = first;
         lastName = last;
         bioInfo = bio;
@@ -55,7 +56,7 @@ public class Profile implements Person{
         communities = new HashSet<Community>();
         communityId = community_id;
         userId= user_id;
-
+        answer=yesOrNo; //what the profile answered to you
         /*
         Add in code here that queries for all of the communities
          */
@@ -129,5 +130,6 @@ public class Profile implements Person{
     public Bitmap getProfilePic() {return profilePic;}
     public int getUserId() {return userId;}
     public int getCommunityId() {return communityId;}
+    public int getAnswer() {return answer;}
 
 }

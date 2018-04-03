@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 //    int occurences;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     Queue<Profile> swipes; //global
+    Profile currentDisplayedProfile; //to keep track of displayed profile
 //    boolean isMatch;
 //    String matchName;
 //    String matchCom;
@@ -148,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            currentDisplayedProfile=toDisp;//keep track of the current displayed profile (since it is removed from queue)
            return true;
         }
         else{
@@ -176,27 +178,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void answerYes(View view) {
-//        if(isMatch){
-//            ++occurences;
-//            Intent intent = new Intent(this, oneMatchActivity.class);
-//            intent.putExtras(getIntent());
-//            if(intent.hasExtra("name") && intent.hasExtra("community")){
-//                intent.removeExtra("name");
-//                intent.removeExtra("community");
-//            }
-//            if(intent.hasExtra("place")){
-//                intent.removeExtra("place");
-//            }
-//            intent.putExtra("name", matchName);
-//            intent.putExtra("community", matchCom);
-//            intent.putExtra("place",occurences);
-//
-//            startActivity(intent);
-//        }
-//       else{
-//            ++occurences;
-//            showNext(swipes);
-//        }
+
+
+        if(currentDisplayedProfile.getAnswer()==1) { //candidate answered yes to you
+            Intent intent = new Intent(this, oneMatchActivity.class);
+//            intent.putExtra(getIntent());
+            startActivity(intent);
+            //match stuff
+            //update swipes
+            showNext(swipes);
+        }
+
+        else { //candidate answered no or hasn't answered yet
+            //update swipes
+            showNext(swipes);
+        }
+
 
         //if other person is yes
             //update swipes
@@ -207,27 +204,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void answerNo(View view) {
-//        ++occurences;
-        showNext(swipes);
         //update swipes
-        //showNext
+        showNext(swipes);
     }
 
-    private Bitmap getBitmapFromAssets(String fileName){
-
-        AssetManager am = getAssets();
-        InputStream is = null;
-        try{
-
-            is = am.open(fileName);
-            Bitmap bitmap = BitmapFactory.decodeStream(is);
-            return bitmap;
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 
     public static Bitmap getBitmapFromURL(String src) {
         try {
@@ -303,12 +283,21 @@ public class MainActivity extends AppCompatActivity {
                     int userId = jsonobject.getInt("user_id");
                     int commId = jsonobject.getInt("comm_id");
                     String picture = jsonobject.getString("picture");
+                    int answer = -1;
+                    try {
+                        if (jsonobject.get("candidate_ans") != null) {
+                            answer = jsonobject.getInt("candidate_ans");
+                        }
+                    }
 
-                    Profile p = new Profile(firstName, lastName, bio, picture, community, commId, userId);
-                    //swipes.add(p); //this is the error line
+                    catch (Exception e) {
+                        System.out.println("answer was null");
+
+                    }
+
+                    Profile p = new Profile(firstName, lastName, bio, picture, community, commId, userId, answer);
                     swipesTemp.add(p);
                     System.out.println("added the swipes " + p.getFirstName() + " " + swipesTemp.size());
-                    // System.out.println(p.getFirstName());
                 }
 
 

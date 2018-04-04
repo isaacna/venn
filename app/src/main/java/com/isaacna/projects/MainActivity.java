@@ -131,6 +131,16 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             //display no profiles left
+            ImageView img = findViewById(R.id.otherPic);
+
+            //set bio and name and community
+            TextView otherName = findViewById(R.id.otherName);
+            TextView otherBio = findViewById(R.id.otherBio);
+
+            img.setImageBitmap(null);
+            otherName.setText("No more candidates");
+            otherBio.setText("");
+
             return false;
         }
     }
@@ -156,14 +166,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void answerYes(View view) {
 
-        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),1,currentDisplayedProfile.getSwiperNum());
+//        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),1,currentDisplayedProfile.getSwiperNum());
         if(currentDisplayedProfile.getAnswer()==1) { //candidate answered yes to you
 
             Intent intent = new Intent(this, oneMatchActivity.class);
-//            intent.putExtra(getIntent());
             startActivity(intent);
-            //match stuff
-            //update swipes
             showNext(swipes);
         }
 
@@ -173,17 +180,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //if other person is yes
-            //update swipes
-            //match popup
-        //else
-            //update swipes
-            //showNext
     }
 
     public void answerNo(View view) {
         //update swipes
-        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),0,currentDisplayedProfile.getSwiperNum());
+//        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),0,currentDisplayedProfile.getSwiperNum());
         showNext(swipes);
     }
 

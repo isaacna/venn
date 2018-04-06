@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,52 +19,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
-public class CommunitiesActivity extends AppCompatActivity {
+public class AddCommunityActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_communities); //set layout
-
-
-        new RetrieveTask(this).execute();
-        int count = 0;
-
-        Button addComm = findViewById(R.id.addCommBtn);
-
-        addComm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in = new Intent(CommunitiesActivity.this,AddCommunityActivity.class );
-                startActivity(in);
-
-                Button addComm = findViewById(R.id.addCommBtn);
-
-                addComm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent in = new Intent(CommunitiesActivity.this,AddCommunityActivity.class );
-                        startActivity(in);
-
-
-
-
-
-
-                    }
-                });
-
-
-
-
-            }
-        });
-
+        setContentView(R.layout.activity_add_community);
+        new RetrieveTask(AddCommunityActivity.this).execute();
     }
-
 
     class RetrieveTask extends AsyncTask<String, String, String> {
 
@@ -73,18 +35,18 @@ public class CommunitiesActivity extends AppCompatActivity {
         String response = "";
         LinkedList<String> communitiesList = new LinkedList<>();
         StringBuilder result = new StringBuilder();
-        public CommunitiesActivity activity;
+        public AddCommunityActivity activity;
 
         //this constructor is to pass in the communitiesactivity to access within onpostexecute
-        public RetrieveTask(CommunitiesActivity a) {
+        public RetrieveTask(AddCommunityActivity a) {
             this.activity = a;
         }
 
         protected String doInBackground(String... urls) {
 
             try {
-                int user_id = 1; //will later set to session varible
-                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/getCommunities2.php?user_id=" + user_id);
+                int user_id = 4; //will later set to session varible
+                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/getNewCommunities.php?user_id=" + user_id);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 //System.out.println(urls);
@@ -115,16 +77,16 @@ public class CommunitiesActivity extends AppCompatActivity {
 //            LinkedList<Map.Entry<Integer,String>> = new LinkedList<>();
             HashMap<Integer, String> commIdAndName = new HashMap<Integer,String>();
 
-            LinearLayout ln = (LinearLayout) findViewById(R.id.communities);
+            LinearLayout ln = (LinearLayout) findViewById(R.id.newCommunities);
 
 
             try {
                 //response is a json array
                 JSONArray communitiesJson = new JSONArray(result);
-                System.out.println("success");
+                System.out.println("potential comm");
                 System.out.println(communitiesJson.toString());
 
-                //go through json array and add the name of each community to the linkedlist
+                //go through json array and add the id and name of each community to the map
                 for(int i=0; i < communitiesJson.length(); i++) {
                     JSONObject jsonobject = communitiesJson.getJSONObject(i);
                     String name = jsonobject.getString("name");
@@ -147,15 +109,16 @@ public class CommunitiesActivity extends AppCompatActivity {
                     community.setText(comm_name); //add in name of community to button
 
 
-                    community.setOnClickListener(new View.OnClickListener() { //bind function that sends to match page to button
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(CommunitiesActivity.this, MatchesActivity.class);
-                            intent.putExtra("community", comm_name); //pass in community to remember for that match page
-                            intent.putExtra("comm_id", comm_id_final);
-                            startActivity(intent);
-                        }
-                    });
+//                    community.setOnClickListener(new View.OnClickListener() { //bind function that sends to match page to button
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(CommunitiesActivity.this, MatchesActivity.class);
+//                            intent.putExtra("community", comm_name); //pass in community to remember for that match page
+//                            intent.putExtra("comm_id", comm_id_final);
+//
+//                            startActivity(intent);
+//                        }
+//                    });
 
                     ln.addView(community); //add the community
                 }
@@ -165,12 +128,9 @@ public class CommunitiesActivity extends AppCompatActivity {
             catch (JSONException e){
                 System.out.println(e);
             }
-           // tv.setText(response);
+            // tv.setText(response);
         }
 
 
     }
-
-
-
 }

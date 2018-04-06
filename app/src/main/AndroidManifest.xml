@@ -11,9 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".CommunitiesActivity" />
         <activity android:name=".MatchesActivity" />
@@ -40,6 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AddCommunityActivity"></activity>
     </application>
 
 </manifest>

@@ -29,6 +29,11 @@ public class AddCommunityActivity extends AppCompatActivity {
         new RetrieveTask(AddCommunityActivity.this).execute();
     }
 
+    protected void goToCreate(View view){
+        Intent intent = new Intent(this, CreateCommunityActivity.class);
+        startActivity(intent);
+    }
+
     class RetrieveTask extends AsyncTask<String, String, String> {
 
         private Exception exception;

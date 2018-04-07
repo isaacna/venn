@@ -4,4 +4,5 @@
     <string name="title_activity_first">FirstActivity</string>
     <string name="title_activity_one">one</string>
     <string name="title_activity_one_match">oneMatchActivity</string>
+    <string name="title_activity_add_community">addCommunity</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.isaacna.projects;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,11 +66,17 @@ public class CreateCommunityActivity extends AppCompatActivity {
 
                 }
                 br.close();
+
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            Intent intent = new Intent(this.activity, JustCreatedActivity.class);
+            startActivity(intent);
         }
 
     }

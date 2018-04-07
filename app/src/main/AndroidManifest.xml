@@ -39,13 +39,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddCommunityActivity" />
-        <activity
-            android:name=".addCommunity"
-            android:label="@string/title_activity_add_community"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".createCommunity" />
+        <!--<activity-->
+            <!--android:name=".addCommunity"-->
+            <!--android:label="@string/title_activity_add_community"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <!--<activity android:name=".createCommunity" />-->
         <activity android:name=".CreateCommunityActivity" />
         <activity android:name=".JustCreatedActivity"></activity>
+        <activity android:name=".MessagesActivity"></activity>
+
     </application>
 
 </manifest>

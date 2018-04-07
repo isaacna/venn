@@ -105,6 +105,7 @@ public class MatchesActivity extends AppCompatActivity {
             LinkedList<String> l = new LinkedList<String>();
 //            LinkedList<Map.Entry<Integer,String>> = new LinkedList<>();
             HashMap<Integer, String> matchedIdAndName = new HashMap<Integer,String>(); //hashmap containing the match's id and name
+            HashMap<Integer, Integer> matchedUserIdAndSwipeId = new HashMap<Integer,Integer>();
 
             LinearLayout ln = (LinearLayout) findViewById(R.id.matchesLayout);
 
@@ -118,8 +119,12 @@ public class MatchesActivity extends AppCompatActivity {
                 for(int i=0; i < matchesJson.length(); i++) {
                     JSONObject jsonobject = matchesJson.getJSONObject(i);
                     String fullName = (jsonobject.getString("first_name") + " " + jsonobject.getString("last_name")); //concatenate names
+
                     int user_id = jsonobject.getInt("user_id");
-                    matchedIdAndName.put(user_id,fullName);
+                    int swipe_id = jsonobject.getInt("swipe_id"); //get corresponding swipe_id
+
+                    matchedIdAndName.put(user_id,fullName); // map user id and full name
+                    matchedUserIdAndSwipeId.put(user_id, swipe_id); //map user id and swipe id
                 }
 
                 //add to linear layout and bind communities to button
@@ -128,6 +133,8 @@ public class MatchesActivity extends AppCompatActivity {
                     //need to make these final to put in intent
                     final String match_name = matchedIdAndName.get(match_id);
                     final int match_id_final = match_id;
+                    final int swipe_id = matchedUserIdAndSwipeId.get(match_id);
+
                     System.out.println(match_name);
 //                    final String s2= s; //make string final so it can be put in intent
 
@@ -140,9 +147,11 @@ public class MatchesActivity extends AppCompatActivity {
                     match.setOnClickListener(new View.OnClickListener() { //bind function that sends to match page to button
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(MatchesActivity.this, ChatActivity.class);
-                            intent.putExtra("community", match_name); //pass in community to remember for that match page
-                            intent.putExtra("comm_id", match_id_final);
+                            Intent intent = new Intent(MatchesActivity.this, MessagesActivity.class);
+                            intent.putExtra("other_name", match_name); //pass in community to remember for that match page
+                            intent.putExtra("other_id",match_id_final); //pass the person you are messaging's id
+                            intent.putExtra("swipe_id", swipe_id); //pass the swipe id
+
                             startActivity(intent);
                         }
                     });
@@ -160,6 +169,6 @@ public class MatchesActivity extends AppCompatActivity {
 
 
 
-}
+    }
 
     }

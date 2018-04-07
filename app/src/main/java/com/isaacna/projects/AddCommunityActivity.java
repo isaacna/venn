@@ -29,7 +29,7 @@ public class AddCommunityActivity extends AppCompatActivity {
         new RetrieveTask(AddCommunityActivity.this).execute();
     }
 
-    protected void goToCreate(View view){
+    public void goToCreate(View view){
         Intent intent = new Intent(this, CreateCommunityActivity.class);
         startActivity(intent);
     }

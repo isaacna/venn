@@ -28,6 +28,7 @@ public class Profile implements Person{
     private int userId;
     private int answer;
     private int swiperNum;
+    private int swipeId;
 
     private Set<Community> communities;
 
@@ -51,7 +52,7 @@ public class Profile implements Person{
     }
 
     //constructor for other profiles
-    public Profile(String first, String last, String bio, String picSrc, String community, int community_id, int user_id, int yesOrNo, int swipernum){
+    public Profile(String first, String last, String bio, String picSrc, String community, int community_id, int user_id, int yesOrNo, int swipernum, int swipe_id){
         firstName = first;
         lastName = last;
         bioInfo = bio;
@@ -65,6 +66,7 @@ public class Profile implements Person{
         userId= user_id;
         answer=yesOrNo; //what the profile answered to you
         swiperNum = swipernum;
+        swipeId = swipe_id;
         /*
         Add in code here that queries for all of the communities
          */

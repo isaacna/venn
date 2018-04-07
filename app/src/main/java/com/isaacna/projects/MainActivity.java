@@ -262,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
                     int commId = jsonobject.getInt("comm_id");
                     String picture = jsonobject.getString("picture");
                     int swiperNum = jsonobject.getInt("swiper_number");
+                    int swipeId = jsonobject.getInt("swipe_id");
                     int answer = -1;
                     try {
                         if (jsonobject.get("candidate_ans") != null) {//check if answer is null
@@ -274,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
 
-                    Profile p = new Profile(firstName, lastName, bio, picture, community, commId, userId, answer,swiperNum);
+                    Profile p = new Profile(firstName, lastName, bio, picture, community, commId, userId, answer,swiperNum, swipeId);
                     swipesTemp.add(p);
                     System.out.println("added the swipes " + p.getFirstName() + " " + swipesTemp.size());
                 }

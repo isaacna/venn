@@ -40,18 +40,9 @@ public class CommunitiesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(CommunitiesActivity.this,AddCommunityActivity.class );
+                in.putExtras(getIntent());
                 startActivity(in);
 
-                Button addComm = findViewById(R.id.addCommBtn);
-
-                addComm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent in = new Intent(CommunitiesActivity.this,AddCommunityActivity.class );
-                        in.putExtras(getIntent());
-                        startActivity(in);
-                    }
-                });
             }
         });
 

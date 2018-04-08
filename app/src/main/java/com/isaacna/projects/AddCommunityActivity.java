@@ -27,6 +27,8 @@ public class AddCommunityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_community);
         new RetrieveTask(AddCommunityActivity.this).execute();
+        Intent in = getIntent();
+//        System.out.println("where is it? " + in.getIntExtra("userID",-1));
     }
 
     public void goToCreate(View view){

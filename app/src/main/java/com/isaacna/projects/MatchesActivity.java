@@ -34,7 +34,7 @@ public class MatchesActivity extends AppCompatActivity {
 
         int comm_id = intent.getIntExtra("comm_id", -1); //return -1 if no comm_id passed
 
-        new RetrieveMatchesTask(this).execute(1,comm_id); //replace the 1 with the session user id
+        new RetrieveMatchesTask(this).execute(getIntent().getIntExtra("userID", 0),comm_id); //replace the 1 with the session user id
 //        Button match1 = findViewById(R.id.person1);
 //        Button match2 = findViewById(R.id.person2);
 //
@@ -53,6 +53,7 @@ public class MatchesActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChatActivity.class);
         String name = ((Button) view).getText().toString();
         intent.putExtra("matchName", name);
+        intent.putExtras(getIntent());
         startActivity(intent);
     }
 
@@ -151,7 +152,7 @@ public class MatchesActivity extends AppCompatActivity {
                             intent.putExtra("other_name", match_name); //pass in community to remember for that match page
                             intent.putExtra("other_id",match_id_final); //pass the person you are messaging's id
                             intent.putExtra("swipe_id", swipe_id); //pass the swipe id
-
+                            intent.putExtras(getIntent());
                             startActivity(intent);
                         }
                     });

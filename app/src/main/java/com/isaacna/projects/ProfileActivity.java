@@ -16,6 +16,8 @@ import java.net.URL;
 
 public class ProfileActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +42,13 @@ public class ProfileActivity extends AppCompatActivity {
         protected Profile doInBackground(String... params) {
             Bitmap bitmap = null;
             Profile p = new Profile();
+            String first = activity.getIntent().getStringExtra("firstName");
+            String last = activity.getIntent().getStringExtra("lastName");
+            String bio = activity.getIntent().getStringExtra("bio");
+            String picSource = activity.getIntent().getStringExtra("prosource");
+            int id = activity.getIntent().getIntExtra("userID", 2);
             try {
-                 p = new Profile("Isaac", "Na", "CS major at wustl" ,"isaac.png", 1);
+                 p = new Profile(first, last, bio ,picSource, id);
             } catch (Exception e) {
 
             }
@@ -54,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
             TextView bio = findViewById(R.id.bio);
             bio.setText(p.getBioInfo());
             ImageView img = findViewById(R.id.imageView2);
-            img.setImageBitmap(p.getProfilePic());
+            img.setImageBitmap((Bitmap) activity.getIntent().getParcelableExtra("picture"));
         }
     }
 

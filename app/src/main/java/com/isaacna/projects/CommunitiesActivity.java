@@ -48,19 +48,10 @@ public class CommunitiesActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent in = new Intent(CommunitiesActivity.this,AddCommunityActivity.class );
+                        in.putExtras(getIntent());
                         startActivity(in);
-
-
-
-
-
-
                     }
                 });
-
-
-
-
             }
         });
 
@@ -83,7 +74,7 @@ public class CommunitiesActivity extends AppCompatActivity {
         protected String doInBackground(String... urls) {
 
             try {
-                int user_id = 1; //will later set to session varible
+                int user_id = activity.getIntent().getIntExtra("userID", 1); //will later set to session varible
                 URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/getCommunities2.php?user_id=" + user_id);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
@@ -153,6 +144,7 @@ public class CommunitiesActivity extends AppCompatActivity {
                             Intent intent = new Intent(CommunitiesActivity.this, MatchesActivity.class);
                             intent.putExtra("community", comm_name); //pass in community to remember for that match page
                             intent.putExtra("comm_id", comm_id_final);
+                            intent.putExtras(activity.getIntent());
                             startActivity(intent);
                         }
                     });

@@ -81,17 +81,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void viewProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
-//        intent.putExtras(getIntent());
+        intent.putExtras(this.getIntent());
         startActivity(intent);
     }
 
     public void viewCommunities(View view) {
         Intent intent = new Intent(this, CommunitiesActivity.class);
+        intent.putExtras(this.getIntent());
         startActivity(intent);
     }
 
     public void viewCreate(View view){
         Intent intent = new Intent(this, CreateActivity.class);
+        intent.putExtras(this.getIntent());
         startActivity(intent);
     }
 
@@ -122,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, CandidateActivity.class);
                     intent.putExtra("candidate", toDisp.getFirstName() + " " + toDisp.getLastName());
+                    intent.putExtras(MainActivity.this.getIntent());
                     startActivity(intent);
                 }
             });
@@ -173,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("other_id",currentDisplayedProfile.getUserId());
             intent.putExtra("other_name", currentDisplayedProfile.getFirstName() + " " + currentDisplayedProfile.getLastName());
             intent.putExtra("swipe_id", currentDisplayedProfile.getSwipeId());
-
+            intent.putExtras(this.getIntent());
             startActivity(intent);
             showNext(swipes);
         }

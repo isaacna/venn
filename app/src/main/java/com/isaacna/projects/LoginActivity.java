@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         loginB = findViewById(R.id.loginBtn);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-
         loginB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +55,12 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putInt(sessionUserId,p.getUserId());
                     editor.commit();
                     in = new Intent(LoginActivity.this,MainActivity.class);
+                    in.putExtra("userID", p.getUserId());
+                    in.putExtra("firstName", p.getFirstName());
+                    in.putExtra("lastName", p.getLastName());
+                    in.putExtra("bio", p.getBioInfo());
+                    in.putExtra("picture", p.getProfilePic());
+                    in.putExtra("source", p.getProSource());
                     startActivity(in);
                 }
                 catch (Exception e) {

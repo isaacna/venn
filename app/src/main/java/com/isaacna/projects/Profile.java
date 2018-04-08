@@ -22,6 +22,7 @@ public class Profile implements Person{
     private String firstName;
     private String lastName;
     private String bioInfo;
+    private String proSource;
     private Bitmap profilePic;
     private String whichCommunity;
     private int communityId;
@@ -46,6 +47,7 @@ public class Profile implements Person{
 //        communities = new HashSet<Community>();
 //        communityId = community_id;
         userId= user_id;
+        proSource = picSrc;
         /*
         Add in code here that queries for all of the communities
          */
@@ -138,6 +140,7 @@ public class Profile implements Person{
         return bioInfo;
     }
     public String getWhichCommunity() { return whichCommunity;}
+    public String getProSource(){return proSource;}
     public Bitmap getProfilePic() {return profilePic;}
     public int getUserId() {return userId;}
     public int getCommunityId() {return communityId;}

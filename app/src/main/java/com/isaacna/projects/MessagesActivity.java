@@ -41,7 +41,7 @@ public class MessagesActivity extends AppCompatActivity {
     public void sendMessage(View view) {
         Intent in = getIntent();
 
-        String user_id = "1"; //replace with global user
+        String user_id = Integer.toString(in.getIntExtra("userID",0)); //replace with global user
         EditText messageBox = findViewById(R.id.messageBox);
         String body = messageBox.getText().toString();
         int swipe_id = in.getIntExtra("swipe_id",-1);

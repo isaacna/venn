@@ -85,6 +85,7 @@ public class AddCommunityActivity extends AppCompatActivity {
             LinkedList<String> l = new LinkedList<String>();
 //            LinkedList<Map.Entry<Integer,String>> = new LinkedList<>();
             HashMap<Integer, String> commIdAndName = new HashMap<Integer,String>();
+            HashMap<Integer, String> commIdAndDesc = new HashMap<Integer, String>();
 
             LinearLayout ln = (LinearLayout) findViewById(R.id.newCommunities);
 
@@ -100,8 +101,10 @@ public class AddCommunityActivity extends AppCompatActivity {
                     JSONObject jsonobject = communitiesJson.getJSONObject(i);
                     String name = jsonobject.getString("name");
                     int comm_id = jsonobject.getInt("comm_id");
+                    String desc = jsonobject.getString("description");
 //                    l.add(name);
                     commIdAndName.put(comm_id,name);
+                    commIdAndDesc.put(comm_id,desc);
                 }
 
                 //add to linear layout and bind communities to button
@@ -110,6 +113,7 @@ public class AddCommunityActivity extends AppCompatActivity {
                     //need to make these final to put in intent
                     final String comm_name = commIdAndName.get(comm_id);
                     final int comm_id_final = comm_id;
+                    final String comm_desc = commIdAndDesc.get(comm_id);
 //                    final String s2= s; //make string final so it can be put in intent
 
 
@@ -125,7 +129,7 @@ public class AddCommunityActivity extends AppCompatActivity {
                             intent.putExtras(getIntent());
                             intent.putExtra("community", comm_name); //pass in community to remember for that match page
                             intent.putExtra("comm_id", comm_id_final);
-
+                            intent.putExtra("comm_desc", comm_desc);
                             startActivity(intent);
                         }
                     });

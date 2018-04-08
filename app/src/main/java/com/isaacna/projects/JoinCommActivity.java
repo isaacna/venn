@@ -102,6 +102,7 @@ public class JoinCommActivity extends AppCompatActivity {
 //                JSONArray communitiesJson = new JSONArray(result);
                 JSONObject params = new JSONObject(result);
 
+
                 String p1 = params.getString("p1");
                 String p2 = params.getString("p2");
                 String p3 = params.getString("p3");
@@ -112,6 +113,9 @@ public class JoinCommActivity extends AppCompatActivity {
 
                 TextView tv = findViewById(R.id.joinCommName);
                 tv.setText(params.getString("comm_name"));
+
+                TextView desc = findViewById(R.id.joinCommDesc);
+                desc.setText(getIntent().getStringExtra("comm_desc"));
 
                 f1.setHint(p1);
                 f2.setHint(p2);

@@ -56,7 +56,7 @@ public class MessagesActivity extends AppCompatActivity {
         new RetrieveMessagesTask(this).execute(in.getIntExtra("swipe_id",-1));
     }
 
-
+//change
     class RetrieveMessagesTask extends AsyncTask<Integer, String, String> {
 
         private Exception exception;
@@ -135,8 +135,6 @@ public class MessagesActivity extends AppCompatActivity {
                     tv.setText(messageBody);
                     tv.setId(i);
                     tv.setTextSize(20);
-
-
 //                    System.out.println("receiver id: " + receiver_id + " otherId: " + otherId );
 //                    System.out.println("body: " + messageBody);
 
@@ -151,12 +149,8 @@ public class MessagesActivity extends AppCompatActivity {
                         tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT); //align message right
 
                     }
-
                     ln.addView(tv);
-
                 }
-
-
             }
             catch (JSONException e){
                 System.out.println(e);
@@ -206,15 +200,7 @@ public class MessagesActivity extends AppCompatActivity {
             catch (IOException e) {
                 e.printStackTrace();
             }
-
             return "";
         }
-
-
-
     }
-
-
-
-
 }

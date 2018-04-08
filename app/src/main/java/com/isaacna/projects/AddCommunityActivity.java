@@ -31,6 +31,7 @@ public class AddCommunityActivity extends AppCompatActivity {
 
     public void goToCreate(View view){
         Intent intent = new Intent(this, CreateCommunityActivity.class);
+        intent.putExtras(getIntent());
         startActivity(intent);
     }
 
@@ -50,7 +51,7 @@ public class AddCommunityActivity extends AppCompatActivity {
         protected String doInBackground(String... urls) {
 
             try {
-                int user_id = 4; //will later set to session varible
+                int user_id = activity.getIntent().getIntExtra("userID", 0); //will later set to session varible
                 URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/getNewCommunities.php?user_id=" + user_id);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");

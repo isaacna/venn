@@ -59,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
                     in.putExtra("firstName", p.getFirstName());
                     in.putExtra("lastName", p.getLastName());
                     in.putExtra("bio", p.getBioInfo());
-                    in.putExtra("picture", p.getProfilePic());
                     in.putExtra("source", p.getProSource());
                     startActivity(in);
                 }

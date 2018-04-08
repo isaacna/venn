@@ -15,9 +15,6 @@ import java.net.URL;
 
 
 public class ProfileActivity extends AppCompatActivity {
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,9 +22,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         new AsyncTaskLoadImage(this).execute();
 //        Intent intent = new Intent(this, p);
-
-
-
     }
 
     public class AsyncTaskLoadImage  extends AsyncTask<String, String, Profile> {
@@ -45,12 +39,11 @@ public class ProfileActivity extends AppCompatActivity {
             String first = activity.getIntent().getStringExtra("firstName");
             String last = activity.getIntent().getStringExtra("lastName");
             String bio = activity.getIntent().getStringExtra("bio");
-            String picSource = activity.getIntent().getStringExtra("prosource");
-            int id = activity.getIntent().getIntExtra("userID", 2);
+            String picSource = activity.getIntent().getStringExtra("source");
+            int id = activity.getIntent().getIntExtra("userID", 0);
             try {
                  p = new Profile(first, last, bio ,picSource, id);
             } catch (Exception e) {
-
             }
             return p;
         }
@@ -61,8 +54,9 @@ public class ProfileActivity extends AppCompatActivity {
             TextView bio = findViewById(R.id.bio);
             bio.setText(p.getBioInfo());
             ImageView img = findViewById(R.id.imageView2);
-            img.setImageBitmap((Bitmap) activity.getIntent().getParcelableExtra("picture"));
+            //Profile pro = new Profile();
+           // Bitmap bitmap = pro.getBitmapFromURL(activity.getIntent().getStringExtra("source"));
+            img.setImageBitmap(p.getProfilePic());
         }
     }
-
 }

@@ -22,7 +22,7 @@ public class CreateCommunityActivity extends AppCompatActivity {
     }
 
     protected void sendNewCom(View veiw){
-        new CreateTask(this).execute(1);
+        new CreateTask(this).execute(getIntent().getIntExtra("userID",0));
 
     }
 
@@ -76,6 +76,7 @@ public class CreateCommunityActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             Intent intent = new Intent(this.activity, JustCreatedActivity.class);
+            intent.putExtras(activity.getIntent());
             startActivity(intent);
         }
 

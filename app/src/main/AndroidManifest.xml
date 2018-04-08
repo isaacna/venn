@@ -21,33 +21,29 @@
         <!-- android:label="@string/title_activity_create" -->
         <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity android:name=".CreateActivity" />
-        <activity
-            android:name=".FirstActivity"
-            android:label="@string/title_activity_first"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FirstActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".oneMatchActivity"
             android:label="@string/title_activity_one_match"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".JoinCommActivity" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".AddCommunityActivity" />
-        <!--<activity-->
-            <!--android:name=".addCommunity"-->
-            <!--android:label="@string/title_activity_add_community"-->
-            <!--android:theme="@style/AppTheme.NoActionBar" />-->
-        <!--<activity android:name=".createCommunity" />-->
+        <!-- <activity -->
+        <!-- android:name=".addCommunity" -->
+        <!-- android:label="@string/title_activity_add_community" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
+        <!-- <activity android:name=".createCommunity" /> -->
         <activity android:name=".CreateCommunityActivity" />
-        <activity android:name=".JustCreatedActivity"></activity>
-        <activity android:name=".MessagesActivity"></activity>
-
+        <activity android:name=".JustCreatedActivity" />
+        <activity android:name=".MessagesActivity" />
+        <activity android:name=".CreateAccountActivity"></activity>
     </application>
 
 </manifest>

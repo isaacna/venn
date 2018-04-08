@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,6 +38,24 @@ public class MessagesActivity extends AppCompatActivity {
         new RetrieveMessagesTask(this).execute(in.getIntExtra("swipe_id",-1)); //get swipe id and pass to retrieve messages task
     }
 
+    public void sendMessage(View view) {
+        Intent in = getIntent();
+
+        String user_id = "1"; //replace with global user
+        EditText messageBox = findViewById(R.id.messageBox);
+        String body = messageBox.getText().toString();
+        int swipe_id = in.getIntExtra("swipe_id",-1);
+        int other_id = in.getIntExtra("other_id", -1);
+
+    try {
+        String s = new SendMessageTask(this).execute(Integer.toString(swipe_id), user_id, Integer.toString(other_id), body).get();
+    }
+    catch (Exception e){
+    }
+
+        new RetrieveMessagesTask(this).execute(in.getIntExtra("swipe_id",-1));
+    }
+
 
     class RetrieveMessagesTask extends AsyncTask<Integer, String, String> {
 
@@ -50,6 +69,7 @@ public class MessagesActivity extends AppCompatActivity {
         public RetrieveMessagesTask(MessagesActivity a) {
             this.activity = a;
             in = activity.getIntent();
+
         }
 
         protected String doInBackground(Integer... params) {
@@ -85,7 +105,7 @@ public class MessagesActivity extends AppCompatActivity {
 
 
             LinearLayout ln = (LinearLayout) findViewById(R.id.messagesLayout);
-
+            ln.removeAllViews();
 
 
             try {
@@ -110,11 +130,7 @@ public class MessagesActivity extends AppCompatActivity {
 
                     int otherId = in.getIntExtra("other_id",-1); //id of the person you are messaging (passed in from matches activity)
 
-
-
-//                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//                    params.gravity = Gravity.END;
-
+                    //create new textview
                     TextView tv = new TextView(activity);
                     tv.setText(messageBody);
                     tv.setId(i);
@@ -145,10 +161,60 @@ public class MessagesActivity extends AppCompatActivity {
             catch (JSONException e){
                 System.out.println(e);
             }
-            // tv.setText(response);
+        }
+
+    }
+
+
+    class SendMessageTask extends AsyncTask<String, String, String> {
+
+        private Exception exception;
+        String response = "";
+        StringBuilder result = new StringBuilder();
+        public MessagesActivity activity;
+
+        public SendMessageTask(MessagesActivity a) {
+            this.activity = a;
+        }
+
+        protected String doInBackground(String... params) {
+
+            try {
+                String swipe_id = params[0];
+                String sender_id = params[1];
+                String receiver_id = params[2];
+                String body = params[3];
+
+                String u = "http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/sendMessage.php?swipe_id=" + swipe_id +
+                        "&sender_id=" + sender_id + "&receiver_id="+ receiver_id + "&body=" + body;
+                URL url = new URL(u);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                String line;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+
+                while ((line = br.readLine()) != null) {
+                    result.append(line);
+                    response += result.toString();
+                    System.out.println(response);
+                    //communitiesList.add(result.toString());
+
+                }
+                br.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return "";
         }
 
 
 
     }
+
+
+
+
 }

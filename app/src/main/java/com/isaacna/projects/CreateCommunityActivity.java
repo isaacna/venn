@@ -21,7 +21,7 @@ public class CreateCommunityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_community);
     }
 
-    protected void sendNewCom(View veiw){
+    protected void sendNewCom(View view){
         new CreateTask(this).execute(getIntent().getIntExtra("userID",0));
 
     }

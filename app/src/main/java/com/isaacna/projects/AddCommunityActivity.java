@@ -31,6 +31,7 @@ public class AddCommunityActivity extends AppCompatActivity {
 //        System.out.println("where is it? " + in.getIntExtra("userID",-1));
     }
 
+    //create a new community
     public void goToCreate(View view){
         Intent intent = new Intent(this, CreateCommunityActivity.class);
         intent.putExtras(getIntent());
@@ -117,16 +118,17 @@ public class AddCommunityActivity extends AppCompatActivity {
                     community.setText(comm_name); //add in name of community to button
 
 
-//                    community.setOnClickListener(new View.OnClickListener() { //bind function that sends to match page to button
-//                        @Override
-//                        public void onClick(View v) {
-//                            Intent intent = new Intent(CommunitiesActivity.this, MatchesActivity.class);
-//                            intent.putExtra("community", comm_name); //pass in community to remember for that match page
-//                            intent.putExtra("comm_id", comm_id_final);
-//
-//                            startActivity(intent);
-//                        }
-//                    });
+                    community.setOnClickListener(new View.OnClickListener() { //bind function that sends to match page to button
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(AddCommunityActivity.this, JoinCommActivity.class);
+                            intent.putExtras(getIntent());
+                            intent.putExtra("community", comm_name); //pass in community to remember for that match page
+                            intent.putExtra("comm_id", comm_id_final);
+
+                            startActivity(intent);
+                        }
+                    });
 
                     ln.addView(community); //add the community
                 }

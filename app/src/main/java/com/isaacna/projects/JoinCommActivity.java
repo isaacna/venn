@@ -107,7 +107,7 @@ public class JoinCommActivity extends AppCompatActivity {
                 String p2 = params.getString("p2");
                 String p3 = params.getString("p3");
 
-                EditText f1 = findViewById(R.id.field1);
+                EditText f1 = findViewById(R.id.field1);//alsdif 
                 EditText f2 = findViewById(R.id.field2);
                 EditText f3 = findViewById(R.id.field3);
 

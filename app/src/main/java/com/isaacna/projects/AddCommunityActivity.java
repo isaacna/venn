@@ -51,7 +51,7 @@ public class AddCommunityActivity extends AppCompatActivity {
 
             try {
                 int user_id = 4; //will later set to session varible
-                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/getNewCommunities.php?user_id=" + user_id);
+                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/getNewCommunities.php?user_id=" + user_id);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 //System.out.println(urls);

@@ -143,6 +143,7 @@ public class Profile implements Person{
     public int getCommunityId() {return communityId;}
     public int getAnswer() {return answer;}
     public int getSwiperNum() { return swiperNum;}
+    public int getSwipeId() {return swipeId;}
 
 
 }

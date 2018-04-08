@@ -51,7 +51,7 @@ public class CreateCommunityActivity extends AppCompatActivity {
                 holder = findViewById(R.id.editText6);
                 String par3 = holder.getText().toString();
                 int userId = params[0];
-                String urlString = "http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/createCom.php?user_id=" + userId
+                String urlString = "http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/createCom.php?user_id=" + userId
                         + "&name=" + name + "&desc=" + desc + "&p1=" + par1
                         + "&p2=" + par2 + "&p3=" + par3;
                 URL url =new URL(urlString);

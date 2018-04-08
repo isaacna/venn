@@ -169,7 +169,11 @@ public class MainActivity extends AppCompatActivity {
 //        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),1,currentDisplayedProfile.getSwiperNum());
         if(currentDisplayedProfile.getAnswer()==1) { //candidate answered yes to you
 
-            Intent intent = new Intent(this, oneMatchActivity.class);
+            Intent intent = new Intent(this, MessagesActivity.class);
+            intent.putExtra("other_id",currentDisplayedProfile.getUserId());
+            intent.putExtra("other_name", currentDisplayedProfile.getFirstName() + " " + currentDisplayedProfile.getLastName());
+            intent.putExtra("swipe_id", currentDisplayedProfile.getSwipeId());
+
             startActivity(intent);
             showNext(swipes);
         }
@@ -221,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 int user_id = 1; //will later set to session varible
-                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/getAllCandidates.php?user_id=" + user_id);
+                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/getAllCandidates.php?user_id=" + user_id);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 //System.out.println(urls);
@@ -322,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
                 int candidate_id = params[2];
                 int user_ans = params[3];
                 int swiper_num = params[4];
-                String u = "http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/updateSwipe.php?user_id=" + user_id +
+                String u = "http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/updateSwipe.php?user_id=" + user_id +
                         "&comm_id=" +comm_id + "&candidate_id="+ candidate_id + "&user_ans=" + user_ans + "&swiper_num=" + swiper_num;
                 URL url = new URL(u);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();

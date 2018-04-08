@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 String email = params[0];
                 String pw_hash = params[1];
-                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/login.php?email=" + email + "&pw_hash=" + pw_hash);
+                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/login.php?email=" + email + "&pw_hash=" + pw_hash);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 //System.out.println(urls);

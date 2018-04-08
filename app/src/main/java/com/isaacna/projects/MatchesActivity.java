@@ -76,7 +76,7 @@ public class MatchesActivity extends AppCompatActivity {
                 int user_id = params[0]; //get my user_id from params
                 int comm_id = params[1]; //get comm_id from params
 
-                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/displayMatches.php?user_id=" + user_id + "&comm_id=" + comm_id);
+                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/displayMatches.php?user_id=" + user_id + "&comm_id=" + comm_id);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 //System.out.println(urls);

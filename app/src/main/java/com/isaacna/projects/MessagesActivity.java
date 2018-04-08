@@ -77,7 +77,7 @@ public class MessagesActivity extends AppCompatActivity {
             try {
                 int swipe_id = params[0]; //get my swipe_id from params
 
-                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/getMessages.php?swipe_id=" + swipe_id );
+                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/getMessages.php?swipe_id=" + swipe_id );
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 //System.out.println(urls);
@@ -185,7 +185,7 @@ public class MessagesActivity extends AppCompatActivity {
                 String receiver_id = params[2];
                 String body = params[3];
 
-                String u = "http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/sendMessage.php?swipe_id=" + swipe_id +
+                String u = "http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/sendMessage.php?swipe_id=" + swipe_id +
                         "&sender_id=" + sender_id + "&receiver_id="+ receiver_id + "&body=" + body;
                 URL url = new URL(u);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();

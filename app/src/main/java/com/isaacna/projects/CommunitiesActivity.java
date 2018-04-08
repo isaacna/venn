@@ -84,7 +84,7 @@ public class CommunitiesActivity extends AppCompatActivity {
 
             try {
                 int user_id = 1; //will later set to session varible
-                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/getCommunities2.php?user_id=" + user_id);
+                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/getCommunities2.php?user_id=" + user_id);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 //System.out.println(urls);
@@ -121,7 +121,7 @@ public class CommunitiesActivity extends AppCompatActivity {
             try {
                 //response is a json array
                 JSONArray communitiesJson = new JSONArray(result);
-                System.out.println("success");
+                System.out.println("Communities joined below");
                 System.out.println(communitiesJson.toString());
 
                 //go through json array and add the name of each community to the linkedlist

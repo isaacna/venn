@@ -121,15 +121,15 @@ public class JoinCommActivity extends AppCompatActivity {
                 f2.setHint(p2);
                 f3.setHint(p3);
 
-                if(p1.equals("") || p1.equals("null")) {
-                    f1.setVisibility(View.GONE);
+                if(!p1.equals("") && !p1.equals("null")) {
+                    f1.setVisibility(View.VISIBLE);
                 }
 
-                if(p2.equals("") || p2.equals("null")) {
-                    f2.setVisibility(View.GONE);
+                if(!p2.equals("") && !p2.equals("null")) {
+                    f2.setVisibility(View.VISIBLE);
                 }
-                if(p3.equals("") || p3.equals("null")) {
-                    f3.setVisibility(View.GONE);
+                if(!p3.equals("") && !p3.equals("null")) {
+                    f3.setVisibility(View.VISIBLE);
                 }
             }
             catch (JSONException e){

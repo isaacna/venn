@@ -35,24 +35,21 @@ public class MatchesActivity extends AppCompatActivity {
         int comm_id = intent.getIntExtra("comm_id", -1); //return -1 if no comm_id passed
 
         new RetrieveMatchesTask(this).execute(getIntent().getIntExtra("userID", 0),comm_id); //replace the 1 with the session user id
-//        Button match1 = findViewById(R.id.person1);
-//        Button match2 = findViewById(R.id.person2);
-//
-//        if(intent.getStringExtra("community").equals("Hockey")) {
-//            match1.setText("Tyler");
-//            match2.setText("Rohan");
-//        }
-//
-//        else {
-//            match1.setText("Nathan");
-//            match2.setText("Isaac");
-//        }
+
     }
 
     public void chatPerson(View view) {
         Intent intent = new Intent(this, ChatActivity.class);
         String name = ((Button) view).getText().toString();
         intent.putExtra("matchName", name);
+        intent.putExtras(getIntent());
+        startActivity(intent);
+    }
+
+    //leave community and go back to communities page
+    public void leaveCommunity(View vew) {
+        new LeaveCommunityTask(this).execute();
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtras(getIntent());
         startActivity(intent);
     }
@@ -171,5 +168,50 @@ public class MatchesActivity extends AppCompatActivity {
 
 
     }
+
+
+    class LeaveCommunityTask extends AsyncTask<Integer, String, String> {
+
+        private Exception exception;
+        String response = "";
+        StringBuilder result = new StringBuilder();
+        public MatchesActivity activity;
+
+        //this constructor is to pass in the communitiesactivity to access within onpostexecute
+        public LeaveCommunityTask(MatchesActivity a) {
+            this.activity = a;
+        }
+
+        protected String doInBackground(Integer... params) {
+
+            try {
+                int user_id = getIntent().getIntExtra("userID",-1); //get my user_id from intent
+                int comm_id = getIntent().getIntExtra("comm_id",-1); //get comm_id from intent
+
+                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/leaveCommunity.php?user_id=" + user_id + "&comm_id=" + comm_id);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                //System.out.println(urls);
+                String line;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+
+                while ((line = br.readLine()) != null) {
+                    result.append(line);
+                    response += result.toString();
+                    System.out.println(response);
+
+                }
+                br.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return result.toString();
+        }
+
+
+    }
+
 
     }

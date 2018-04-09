@@ -40,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
             String last = activity.getIntent().getStringExtra("lastName");
             String bio = activity.getIntent().getStringExtra("bio");
             String picSource = activity.getIntent().getStringExtra("source");
+            System.out.println(picSource);
             int id = activity.getIntent().getIntExtra("userID", 0);
             try {
                  p = new Profile(first, last, bio ,picSource, id);

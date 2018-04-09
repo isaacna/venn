@@ -35,6 +35,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -221,11 +222,12 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                 // Printing uploading success message coming from server on android app.
                 Toast.makeText(CreateAccountActivity.this,string1,Toast.LENGTH_LONG).show();
-
+                System.out.println(string1);
                 // Setting image as transparent after done uploading.
 //                ImageViewHolder.setImageResource(android.R.color.transparent);
                     Intent in = new Intent(activity, MainActivity.class);
                     in.putExtras(activity.getIntent());
+                    in.putExtra("source", Integer.toString(in.getIntExtra("userID", 0)) + ".png");
                     startActivity(in);
 
             }
@@ -242,7 +244,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 HashMapParams.put(ImagePathFieldOnServer, ConvertImage);
 
                 String FinalData = imageProcessClass.ImageHttpRequest(ImageUploadPathOnSever, HashMapParams);
-
+                System.out.println(FinalData);
                 return FinalData;
             }
         }

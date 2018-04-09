@@ -1,6 +1,7 @@
 package com.isaacna.projects;
 
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,52 +33,56 @@ public class CreateAccountActivityOriginal extends AppCompatActivity {
     }
 
     private void alertProblem(String message){
-
+        new AlertDialog.Builder(this).setTitle("Bad input").setMessage(message).setNeutralButton("Close", null).show();
     }
 
     public void addButtonListener(View view){
 
         EditText editText = findViewById(R.id.fname);
         String firstName = editText.getText().toString();
-        String lastName = "";
-        String email = "";
-        String bio = "";
-        String pass1 = "";
-        String pass2 = "";
+        editText = findViewById(R.id.lname);
+        String lastName = editText.getText().toString();
+        editText = findViewById(R.id.email);
+        String email = editText.getText().toString();
+        editText = findViewById(R.id.bio);
+        String bio = editText.getText().toString();
+        editText = findViewById(R.id.pass1);
+        String pass1 = editText.getText().toString();
+        editText = findViewById(R.id.pass2);
+        String pass2 = editText.getText().toString();
 
-        if (!(firstName.equals(""))){
-            if (!(lastName.equals(""))){
-                if (!(email.equals(""))){
-                    if(!(bio.equals(""))){
-                        if(pass1.equals(pass2)){
-                            if(pass1.equals("") || pass2.equals("")){
-                                alertProblem("You must enter and confirm your password");
+        if(firstName == null || lastName == null || email == null
+                || bio == null || pass1 == null || pass2 == null){
+            alertProblem("Please fill out all fields");
+        }
+        else {
+            if (!(firstName.equals(""))) {
+                if (!(lastName.equals(""))) {
+                    if (!(email.equals(""))) {
+                        if (!(bio.equals(""))) {
+                            if (pass1.equals(pass2)) {
+                                if (pass1.equals("") || pass2.equals("")) {
+                                    alertProblem("You must enter and confirm your password");
+                                } else {
+                                    String[] inputs = {firstName, lastName, email, bio, pass1};
+                                    new CreateAccountTask(this).execute(inputs);
+                                }
+                            } else {
+                                alertProblem("passwords do not match");
                             }
-                            else{
-                                String[] inputs = {firstName, lastName, email, bio, pass1};
-                                new CreateAccountTask(this).execute(inputs);
-                            }
+                        } else {
+                            alertProblem("");
                         }
-                        else{
-                            alertProblem("passwords do not match");
-                        }
+                    } else {
+                        alertProblem("email is missing");
                     }
-                    else{
-                        alertProblem("");
-                    }
+                } else {
+                    alertProblem("last name is missing");
                 }
-                else{
-                    alertProblem("email is missing");
-                }
-            }
-            else{
-                alertProblem("last name is missing");
+            } else {
+                alertProblem("first name is missing");
             }
         }
-        else{
-            alertProblem("first name is missing");
-        }
-
 
     }
 

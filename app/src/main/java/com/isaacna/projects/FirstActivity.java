@@ -19,7 +19,7 @@ public class FirstActivity extends AppCompatActivity {
     }
 
     public void goToCreate(View view){
-        Intent intent = new Intent(this, CreateAccountActivity.class);
+        Intent intent = new Intent(this, CreateAccountActivityOriginal.class);
         startActivity(intent);
     }
 }

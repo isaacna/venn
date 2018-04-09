@@ -7,10 +7,10 @@
     tools:context="com.isaacna.projects.CreateAccountActivity">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="fill_parent"
         android:layout_height="270dp"
-        android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -18,7 +18,10 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
+        android:layout_above="@+id/editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="8dp"
         android:onClick="findImage"
         android:text="getImageFromAlbum" />
 
@@ -26,21 +29,23 @@
         android:id="@+id/editText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button"
-        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Enter Image Name"
         android:gravity="center"
-        android:layout_marginTop="10dp"/>
+        android:hint="Enter Image Name"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Upload Captured Image On Server"
-        android:layout_below="@+id/editText"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="93dp"
+        android:text="Upload Captured Image On Server" />
 
 </RelativeLayout>

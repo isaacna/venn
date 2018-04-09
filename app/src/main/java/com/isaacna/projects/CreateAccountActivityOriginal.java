@@ -1,5 +1,6 @@
 package com.isaacna.projects;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -92,6 +93,7 @@ public class CreateAccountActivityOriginal extends AppCompatActivity {
         String response = "";
         StringBuilder result = new StringBuilder();
         public CreateAccountActivityOriginal activity;
+        Intent in;
 
         public CreateAccountTask(CreateAccountActivityOriginal a){
             activity = a;
@@ -112,7 +114,7 @@ public class CreateAccountActivityOriginal extends AppCompatActivity {
                         + "&lastName=" + lastName
                         + "&email=" + email
                         + "&bio=" + bio
-                        + "%pass=" + pass;
+                        + "&pass=" + pass;
 
                 URL url = new URL(functionalURL);
 
@@ -128,12 +130,25 @@ public class CreateAccountActivityOriginal extends AppCompatActivity {
                     System.out.println(response);
 
                 }
+                int id = Integer.parseInt(response);
+                System.out.println(id);
+                in = new Intent(activity, CreateAccountActivity.class);
+                in.putExtra("userID", id);
+                in.putExtra("firstName", strings[FIRST_NAME]);
+                in.putExtra("lastName", strings[LAST_NAME]);
+                in.putExtra("bio", strings[BIO]);
+               // in.putExtra("source", p.getProSource());
+
                 br.close();
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
             return response;
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            startActivity(in);
         }
     }
 }

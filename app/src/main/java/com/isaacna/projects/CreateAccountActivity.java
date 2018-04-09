@@ -1,6 +1,7 @@
 
 package com.isaacna.projects;
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -44,7 +45,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     ImageView ImageViewHolder;
 
-    EditText imageName;
+    //EditText imageName;
 
     ProgressDialog progressDialog;
 
@@ -72,11 +73,11 @@ public class CreateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
 
         CaptureImageFromCamera = (Button) findViewById(R.id.button);
-        ImageViewHolder = (ImageView) findViewById(R.id.imageView);
+       // ImageViewHolder = (ImageView) findViewById(R.id.imageView);
         UploadImageToServer = (Button) findViewById(R.id.button2);
-        imageName = (EditText) findViewById(R.id.editText);
+       // imageName = Integer.toString(getIntent().getIntExtra("userID",0));// (EditText) findViewById(R.id.editText);
 
-        EnableRuntimePermissionToAccessCamera();
+        //EnableRuntimePermissionToAccessCamera();
 
 //        CaptureImageFromCamera.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -93,8 +94,8 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                GetImageNameFromEditText = imageName.getText().toString();
-
+                //GetImageNameFromEditText = imageName.getText().toString();
+                GetImageNameFromEditText = Integer.toString(getIntent().getIntExtra("userID",0));
                 ImageUploadToServerFunction();
 
             }
@@ -144,23 +145,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         System.out.println("TESTSTSERSTE");
         System.out.println(resultCode + " " + RESULT_OK + "    " + data.toString());
-//        if (requestCode == 7 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-//            System.out.println("TESTSTSERSTE");
-//            Uri uri = data.getData();
 //
-//            try {
-//
-//                // Adding captured image in bitmap.
-//                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-//
-//                // adding captured image in imageview.
-//                ImageViewHolder.setImageBitmap(bitmap);
-//
-//            } catch (IOException e) {
-//
-//                e.printStackTrace();
-//            }
-//        }
         if (resultCode == RESULT_OK) try {
             final Uri imageUri = data.getData();
             final InputStream imageStream = getContentResolver().openInputStream(imageUri);
@@ -211,6 +196,12 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         class AsyncTaskUploadClass extends AsyncTask<Void,Void,String> {
 
+
+            CreateAccountActivity activity;
+            AsyncTaskUploadClass(CreateAccountActivity a){
+                activity = a;
+            }
+
             @Override
             protected void onPreExecute() {
 
@@ -232,8 +223,10 @@ public class CreateAccountActivity extends AppCompatActivity {
                 Toast.makeText(CreateAccountActivity.this,string1,Toast.LENGTH_LONG).show();
 
                 // Setting image as transparent after done uploading.
-                ImageViewHolder.setImageResource(android.R.color.transparent);
-
+//                ImageViewHolder.setImageResource(android.R.color.transparent);
+                    Intent in = new Intent(activity, MainActivity.class);
+                    in.putExtras(activity.getIntent());
+                    startActivity(in);
 
             }
 
@@ -253,7 +246,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 return FinalData;
             }
         }
-        AsyncTaskUploadClass AsyncTaskUploadClassOBJ = new AsyncTaskUploadClass();
+        AsyncTaskUploadClass AsyncTaskUploadClassOBJ = new AsyncTaskUploadClass(this);
 
         AsyncTaskUploadClassOBJ.execute();
     }

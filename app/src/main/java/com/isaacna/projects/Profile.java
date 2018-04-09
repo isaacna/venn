@@ -107,7 +107,7 @@ public class Profile implements Person{
 
     public Bitmap getBitmapFromURL(String src) {
         try {
-            URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/images/" + src);
+            URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/images/" + src);
             System.out.println(url.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);

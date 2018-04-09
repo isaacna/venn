@@ -56,6 +56,13 @@ public class MessagesActivity extends AppCompatActivity {
         new RetrieveMessagesTask(this).execute(in.getIntExtra("swipe_id",-1));
     }
 
+    public void unmatch(View view) {
+        new UnmatchTask(this).execute();
+        Intent in = new Intent(this, MainActivity.class);
+        in.putExtras(getIntent());
+        startActivity(in);
+    }
+
 //change
     class RetrieveMessagesTask extends AsyncTask<Integer, String, String> {
 
@@ -118,7 +125,7 @@ public class MessagesActivity extends AppCompatActivity {
                 String otherName = in.getStringExtra("other_name"); //name of the person you are messaging (from matches activity)
                 TextView otherTextView = findViewById(R.id.messageName);
                 otherTextView.setText(otherName); //set who your messaging's name
-                otherTextView.setTextSize(30);
+//                otherTextView.setTextSize(30);
 
                 //go through json array and add the id and name of each match to the map
                 for(int i=0; i < messagesJson.length(); i++) {
@@ -202,5 +209,49 @@ public class MessagesActivity extends AppCompatActivity {
             }
             return "";
         }
+    }
+
+
+    class UnmatchTask extends AsyncTask<Integer, String, String> {
+
+        private Exception exception;
+        String response = "";
+        StringBuilder result = new StringBuilder();
+        public MessagesActivity activity;
+
+        //this constructor is to pass in the communitiesactivity to access within onpostexecute
+        public UnmatchTask(MessagesActivity a) {
+            this.activity = a;
+        }
+
+        protected String doInBackground(Integer... params) {
+
+            try {
+                int user_id = getIntent().getIntExtra("userID",-1); //get my user_id from intent
+                int swipe_id = getIntent().getIntExtra("swipe_id",-1); //get comm_id from intent
+
+                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/unmatch.php?user_id=" + user_id + "&swipe_id=" + swipe_id);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                //System.out.println(urls);
+                String line;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+
+                while ((line = br.readLine()) != null) {
+                    result.append(line);
+                    response += result.toString();
+                    System.out.println(response);
+
+                }
+                br.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return result.toString();
+        }
+
+
     }
 }

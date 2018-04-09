@@ -34,16 +34,9 @@ public class JoinCommActivity extends AppCompatActivity {
     }
 
 
-    public void goToMain(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-
-        intent.putExtras(getIntent().getExtras());
-        startActivity(intent);
-    }
-
     public void joinCommunity(View view) {
         new JoinCommTask(this).execute();
-        Intent in = new Intent(this,CommunitiesActivity.class);
+        Intent in = new Intent(this,MainActivity.class);
         in.putExtras(getIntent().getExtras());
         startActivity(in);
     }

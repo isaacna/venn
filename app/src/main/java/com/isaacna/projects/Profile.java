@@ -30,6 +30,14 @@ public class Profile implements Person{
     private int answer;
     private int swiperNum;
     private int swipeId;
+    private String f1;
+    private String f2;
+    private String f3;
+    private String p1;
+    private String p2;
+    private String p3;
+
+
 
     private Set<Community> communities;
 
@@ -54,7 +62,9 @@ public class Profile implements Person{
     }
 
     //constructor for other profiles
-    public Profile(String first, String last, String bio, String picSrc, String community, int community_id, int user_id, int yesOrNo, int swipernum, int swipe_id){
+    public Profile(String first, String last, String bio, String picSrc, String community,
+                   int community_id, int user_id, int yesOrNo, int swipernum, int swipe_id,
+                   String field1, String field2, String field3, String val1,String val2, String val3){
         firstName = first;
         lastName = last;
         bioInfo = bio;
@@ -69,9 +79,12 @@ public class Profile implements Person{
         answer=yesOrNo; //what the profile answered to you
         swiperNum = swipernum;
         swipeId = swipe_id;
-        /*
-        Add in code here that queries for all of the communities
-         */
+        f1=field1;
+        f2=field2;
+        f3=field3;
+        p1=val1;
+        p2=val2;
+        p3=val3;
     }
 
     public Queue<Candidate> getCandidates(){
@@ -147,6 +160,13 @@ public class Profile implements Person{
     public int getAnswer() {return answer;}
     public int getSwiperNum() { return swiperNum;}
     public int getSwipeId() {return swipeId;}
+    public String getF1() {return f1;}
+    public String getF2() {return f2;}
+    public String getF3() {return f3;}
+    public String getP1() {return p1;}
+    public String getP2() {return p2;}
+    public String getP3() {return p3;}
+
 
 
 }

@@ -123,8 +123,19 @@ public class MainActivity extends AppCompatActivity {
             rl.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, CandidateActivity.class);
-                    intent.putExtra("candidate", toDisp.getFirstName() + " " + toDisp.getLastName());
                     intent.putExtras(MainActivity.this.getIntent());
+
+                    //put swipes info to intent
+                    intent.putExtra("candidate_name", toDisp.getFirstName() + " " + toDisp.getLastName());
+                    intent.putExtra("candidate_pic", toDisp.getProfilePic());
+                    intent.putExtra("candidate_bio", toDisp.getBioInfo());
+                    intent.putExtra("f1",toDisp.getF1());
+                    intent.putExtra("f2",toDisp.getF2());
+                    intent.putExtra("f3",toDisp.getF3());
+                    intent.putExtra("p1",toDisp.getP1());
+                    intent.putExtra("p2",toDisp.getP2());
+                    intent.putExtra("p3",toDisp.getP3());
+
                     startActivity(intent);
                 }
             });
@@ -270,6 +281,14 @@ public class MainActivity extends AppCompatActivity {
                     String picture = jsonobject.getString("picture");
                     int swiperNum = jsonobject.getInt("swiper_number");
                     int swipeId = jsonobject.getInt("swipe_id");
+
+                    String f1 = jsonobject.getString("f1");
+                    String f2 = jsonobject.getString("f2");
+                    String f3 = jsonobject.getString("f3");
+                    String p1 = jsonobject.getString("p1");
+                    String p2 = jsonobject.getString("p2");
+                    String p3 = jsonobject.getString("p3");
+
                     int answer = -1;
                     try {
                         if (jsonobject.get("candidate_ans") != null) {//check if answer is null
@@ -282,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
 
-                    Profile p = new Profile(firstName, lastName, bio, picture, community, commId, userId, answer,swiperNum, swipeId);
+                    Profile p = new Profile(firstName, lastName, bio, picture, community, commId, userId, answer,swiperNum, swipeId,f1,f2,f3,p1,p2,p3);
                     swipesTemp.add(p);
                     System.out.println("added the swipes " + p.getFirstName() + " " + swipesTemp.size());
                 }

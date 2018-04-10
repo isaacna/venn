@@ -28,7 +28,7 @@ public class MatchesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matches);
         Intent intent = getIntent();
-        intent.removeExtra("comm_id");
+//        intent.removeExtra("comm_id");
 
         TextView community = findViewById(R.id.matchCommunity);
         community.setText(intent.getStringExtra("community")); //display name of community the match page is for
@@ -50,8 +50,12 @@ public class MatchesActivity extends AppCompatActivity {
     //leave community and go back to communities page
     public void leaveCommunity(View vew) {
         new LeaveCommunityTask(this).execute();
+
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtras(getIntent());
+        intent.removeExtra("comm_id"); //remove to prevent arduiblo error
+        intent.removeExtra("community"); //remove to prevent arduiblo error
+
         startActivity(intent);
     }
 

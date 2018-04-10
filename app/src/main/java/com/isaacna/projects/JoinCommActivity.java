@@ -38,7 +38,8 @@ public class JoinCommActivity extends AppCompatActivity {
         new JoinCommTask(this).execute();
         Intent in = new Intent(this,MainActivity.class);
         in.putExtras(getIntent().getExtras());
-        in.removeExtra("comm_id");
+        in.removeExtra("comm_id");//remove to prevent arduiblo error
+        in.removeExtra("community");//remove to prevent arduiblo error
         startActivity(in);
     }
 

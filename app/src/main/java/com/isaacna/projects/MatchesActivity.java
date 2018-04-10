@@ -190,7 +190,7 @@ public class MatchesActivity extends AppCompatActivity {
         protected String doInBackground(Integer... params) {
 
             try {
-                int user_id = getIntent().getIntExtra("userID",-1); //get my user_id from intent
+                int user_id = getIntent().getIntExtra("userID",0); //get my user_id from intent
                 int comm_id = getIntent().getIntExtra("comm_id",-1); //get comm_id from intent
 
                 URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/leaveCommunity.php?user_id=" + user_id + "&comm_id=" + comm_id);

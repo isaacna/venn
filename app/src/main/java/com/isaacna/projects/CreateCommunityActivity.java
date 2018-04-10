@@ -75,7 +75,7 @@ public class CreateCommunityActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String result) {
-            Intent intent = new Intent(this.activity, JustCreatedActivity.class);
+            Intent intent = new Intent(this.activity, MainActivity.class);
             intent.putExtras(activity.getIntent());
             startActivity(intent);
         }

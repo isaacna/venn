@@ -3,6 +3,7 @@ package com.isaacna.projects;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -25,6 +26,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MessagesActivity extends AppCompatActivity {
 
@@ -35,8 +38,43 @@ public class MessagesActivity extends AppCompatActivity {
 
         Intent in = getIntent();
 
-        new RetrieveMessagesTask(this).execute(in.getIntExtra("swipe_id",-1)); //get swipe id and pass to retrieve messages task
+       // new RetrieveMessagesTask(this).execute(in.getIntExtra("swipe_id",-1)); //get swipe id and pass to retrieve messages task
+
+        makeABunchOfCalls();
     }
+
+    private void makeOneCall(){
+        new RetrieveMessagesTask(this).execute(getIntent().getIntExtra("swipe_id",-1));
+    }
+
+    private void makeABunchOfCalls() {
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+
+        MessagesActivity activity = this;
+
+
+
+
+        TimerTask doRetriveMessages = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        try {
+                            makeOneCall();
+                            // PerformBackgroundTask this class is the class that extends AsynchTask
+
+                        } catch (Exception e) {
+                            System.out.println("uh oh spag get the o");
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(doRetriveMessages, 0, 1000);
+    }
+
 
     public void sendMessage(View view) {
         Intent in = getIntent();

@@ -25,8 +25,8 @@
     <EditText
         android:id="@+id/fname"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="first name"
         android:inputType="textPersonName"
@@ -38,8 +38,8 @@
     <EditText
         android:id="@+id/lname"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="last name"
         android:inputType="textPersonName"
@@ -51,8 +51,8 @@
     <EditText
         android:id="@+id/email"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="email"
         android:inputType="textPersonName"
@@ -66,7 +66,7 @@
     <EditText
         android:id="@+id/bio"
         android:layout_width="317dp"
-        android:layout_height="127dp"
+        android:layout_height="96dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Tell us about yourself"
@@ -78,8 +78,8 @@
     <EditText
         android:id="@+id/pass2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="confirm your password"
         android:inputType="textPassword"

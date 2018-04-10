@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,8 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
@@ -76,8 +79,38 @@ public class MainActivity extends AppCompatActivity {
             showNext(swipes);
         }
 
+        makeABunchOfCalls();
 
        // new RetrieveTask(this).execute();
+    }
+
+    private void makeOneCall(){
+        //new MainActivity().RetrieveMessagesTask(this).execute(getIntent().getIntExtra("swipe_id",-1));
+        getSwipes();
+    }
+
+    private void makeABunchOfCalls() {
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+
+        //MainActivity activity = this;
+
+
+        TimerTask doRetriveMessages = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        try {
+                            makeOneCall();
+                        } catch (Exception e) {
+                            System.out.println("uh oh spag get the o");
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(doRetriveMessages, 0, 10000);
     }
 
     public void viewProfile(View view) {
@@ -188,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void answerYes(View view) {
 
-        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),1,currentDisplayedProfile.getSwiperNum());
+        new UpdateSwipeTask().execute(getIntent().getIntExtra("userID",0),currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),1,currentDisplayedProfile.getSwiperNum());
         if(currentDisplayedProfile.getAnswer()==1) { //candidate answered yes to you
 
             Intent intent = new Intent(this, MessagesActivity.class);
@@ -210,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void answerNo(View view) {
         //update swipes
-        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),0,currentDisplayedProfile.getSwiperNum());
+        new UpdateSwipeTask().execute(getIntent().getIntExtra("userID",0),currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),0,currentDisplayedProfile.getSwiperNum());
         showNext(swipes);
     }
 

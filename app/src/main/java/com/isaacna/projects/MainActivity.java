@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //put swipes info to intent
                     intent.putExtra("candidate_name", toDisp.getFirstName() + " " + toDisp.getLastName());
-                    intent.putExtra("candidate_pic", toDisp.getProfilePic());
+//                    intent.putExtra("candidate_pic", toDisp.getProfilePic());
                     intent.putExtra("candidate_bio", toDisp.getBioInfo());
                     intent.putExtra("f1",toDisp.getF1());
                     intent.putExtra("f2",toDisp.getF2());
@@ -135,6 +136,13 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("p1",toDisp.getP1());
                     intent.putExtra("p2",toDisp.getP2());
                     intent.putExtra("p3",toDisp.getP3());
+
+                    //put picture into intent
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    toDisp.getProfilePic().compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    intent.putExtra("candidate_pic",byteArray);
+
 
                     startActivity(intent);
                 }

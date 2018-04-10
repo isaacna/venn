@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                     in.putExtra("lastName", p.getLastName());
                     in.putExtra("bio", p.getBioInfo());
                     in.putExtra("source", p.getProSource());
+                    in.putExtra("firstTime", false);
                     startActivity(in);
                 }
                 catch (Exception e) {

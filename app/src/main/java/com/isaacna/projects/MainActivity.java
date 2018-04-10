@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void answerYes(View view) {
 
-//        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),1,currentDisplayedProfile.getSwiperNum());
+        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),1,currentDisplayedProfile.getSwiperNum());
         if(currentDisplayedProfile.getAnswer()==1) { //candidate answered yes to you
 
             Intent intent = new Intent(this, MessagesActivity.class);
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void answerNo(View view) {
         //update swipes
-//        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),0,currentDisplayedProfile.getSwiperNum());
+        new UpdateSwipeTask().execute(1,currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),0,currentDisplayedProfile.getSwiperNum());
         showNext(swipes);
     }
 

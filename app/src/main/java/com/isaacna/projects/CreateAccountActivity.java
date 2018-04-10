@@ -103,7 +103,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         });
     }
 
-
     private void getImageFromAlbum(){
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
@@ -142,10 +141,10 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println("test test test test sodifj paosdijf poaisjd fpoaisjd f");
+        //System.out.println("test test test test sodifj paosdijf poaisjd fpoaisjd f");
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("TESTSTSERSTE");
-        System.out.println(resultCode + " " + RESULT_OK + "    " + data.toString());
+        //System.out.println("TESTSTSERSTE");
+        //System.out.println(resultCode + " " + RESULT_OK + "    " + data.toString());
 //
         if (resultCode == RESULT_OK) try {
             final Uri imageUri = data.getData();
@@ -162,7 +161,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
 
     }
-
 
     // Requesting runtime permission to access camera.
     public void EnableRuntimePermissionToAccessCamera(){
@@ -225,7 +223,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                 System.out.println(string1);
                 // Setting image as transparent after done uploading.
 //                ImageViewHolder.setImageResource(android.R.color.transparent);
-                    Intent in = new Intent(activity, MainActivity.class);
+                    Intent in = new Intent(activity, AddCommunityActivity.class);
+                    in.putExtra("firstTime", true);
                     in.putExtras(activity.getIntent());
                     in.putExtra("source", Integer.toString(in.getIntExtra("userID", 0)) + ".png");
                     startActivity(in);

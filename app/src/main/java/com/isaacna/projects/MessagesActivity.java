@@ -63,8 +63,6 @@ public class MessagesActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             makeOneCall();
-                            // PerformBackgroundTask this class is the class that extends AsynchTask
-
                         } catch (Exception e) {
                             System.out.println("uh oh spag get the o");
                         }
@@ -171,10 +169,10 @@ public class MessagesActivity extends AppCompatActivity {
                     JSONObject jsonobject = messagesJson.getJSONObject(i);
 
                     int receiver_id = jsonobject.getInt("receiver_id"); //id of the person who receives this message
+
                     String messageBody = jsonobject.getString("body"); //body of the message
 
                     int otherId = in.getIntExtra("other_id",-1); //id of the person you are messaging (passed in from matches activity)
-
                     //create new textview
                     TextView tv = new TextView(activity);
                     tv.setText(messageBody);
@@ -182,7 +180,6 @@ public class MessagesActivity extends AppCompatActivity {
                     tv.setTextSize(20);
 //                    System.out.println("receiver id: " + receiver_id + " otherId: " + otherId );
 //                    System.out.println("body: " + messageBody);
-
                     if (receiver_id == otherId) {//message goes to to other person
 //                        System.out.println("should go on the right");
                         tv.setBackgroundColor(Color.GRAY);
@@ -192,7 +189,6 @@ public class MessagesActivity extends AppCompatActivity {
 //                        System.out.println("should go on the left");
                         tv.setBackgroundColor(Color.CYAN);
                         tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT); //align message right
-
                     }
                     ln.addView(tv);
                 }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -86,6 +87,10 @@ public class MainActivity extends AppCompatActivity {
     private void makeOneCall(){
         //new MainActivity().RetrieveMessagesTask(this).execute(getIntent().getIntExtra("swipe_id",-1));
         getSwipes();
+        TextView text = findViewById(R.id.otherName);
+        if(text.getText().toString().equals("No more candidates")){
+            showNext(swipes);
+        }
     }
 
     private void makeABunchOfCalls() {
@@ -222,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("other_id",currentDisplayedProfile.getUserId());
             intent.putExtra("other_name", currentDisplayedProfile.getFirstName() + " " + currentDisplayedProfile.getLastName());
             intent.putExtra("swipe_id", currentDisplayedProfile.getSwipeId());
-            
+
 
             intent.putExtras(this.getIntent());
             startActivity(intent);

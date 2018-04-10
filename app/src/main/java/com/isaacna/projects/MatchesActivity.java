@@ -28,6 +28,7 @@ public class MatchesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matches);
         Intent intent = getIntent();
+        intent.removeExtra("comm_id");
 
         TextView community = findViewById(R.id.matchCommunity);
         community.setText(intent.getStringExtra("community")); //display name of community the match page is for

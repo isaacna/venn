@@ -38,6 +38,7 @@ public class JoinCommActivity extends AppCompatActivity {
         new JoinCommTask(this).execute();
         Intent in = new Intent(this,MainActivity.class);
         in.putExtras(getIntent().getExtras());
+        in.removeExtra("comm_id");
         startActivity(in);
     }
 
@@ -164,6 +165,7 @@ public class JoinCommActivity extends AppCompatActivity {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 //System.out.println(urls);
+
                 String line;
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 

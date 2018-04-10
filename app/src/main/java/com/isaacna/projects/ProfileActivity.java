@@ -48,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
             return p;
         }
-        @Override 
+        @Override
         protected void onPostExecute(Profile p) {
             TextView name = findViewById(R.id.name); //R.id.x refers to the textview with ID x
             name.setText((p.getFirstName() + " " + p.getLastName()));

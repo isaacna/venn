@@ -218,19 +218,31 @@ public class MainActivity extends AppCompatActivity {
        System.out.println("got the swipes");
     }
 
-    public void answerYes(View view) {
+    public void removeDuplicates(Profile p) {
+        for(Profile prof : swipes) {
+            if(prof.getSwipeId()==p.getSwipeId()) {
+                swipes.remove(prof);
+            }
+        }
+    }
 
+
+
+    public void answerYes(View view) {
+        removeDuplicates(currentDisplayedProfile);
         new UpdateSwipeTask().execute(getIntent().getIntExtra("userID",0),currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),1,currentDisplayedProfile.getSwiperNum());
         if(currentDisplayedProfile.getAnswer()==1) { //candidate answered yes to you
 
             Intent intent = new Intent(this, MessagesActivity.class);
+            intent.putExtras(this.getIntent());
+
             intent.putExtra("other_id",currentDisplayedProfile.getUserId());
             intent.putExtra("other_name", currentDisplayedProfile.getFirstName() + " " + currentDisplayedProfile.getLastName());
             intent.putExtra("swipe_id", currentDisplayedProfile.getSwipeId());
 
 
-            intent.putExtras(this.getIntent());
             startActivity(intent);
+
             showNext(swipes);
         }
 
@@ -242,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void answerNo(View view) {
         //update swipes
+        removeDuplicates(currentDisplayedProfile);
         new UpdateSwipeTask().execute(getIntent().getIntExtra("userID",0),currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),0,currentDisplayedProfile.getSwiperNum());
         showNext(swipes);
     }

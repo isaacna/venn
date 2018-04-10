@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 //    String matchName;
 //    String matchCom;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -150,14 +149,12 @@ public class MainActivity extends AppCompatActivity {
             otherBio.setText(toDisp.getBioInfo());
 
 
-
-
             //pass profile to expanded candidate screen
             RelativeLayout rl = (RelativeLayout)findViewById(R.id.mainLayout);
             rl.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, CandidateActivity.class);
-                    intent.putExtras(MainActivity.this.getIntent());
+                    //intent.putExtras(getIntent());
 
                     //put swipes info to intent
                     intent.putExtra("candidate_name", toDisp.getFirstName() + " " + toDisp.getLastName());
@@ -176,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                     byte[] byteArray = stream.toByteArray();
                     intent.putExtra("candidate_pic",byteArray);
 
-
+                    intent.putExtras(getIntent());
                     startActivity(intent);
                 }
             });
@@ -214,9 +211,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
        System.out.println("got the swipes");
-
-
-
     }
 
     public void answerYes(View view) {
@@ -228,6 +222,8 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("other_id",currentDisplayedProfile.getUserId());
             intent.putExtra("other_name", currentDisplayedProfile.getFirstName() + " " + currentDisplayedProfile.getLastName());
             intent.putExtra("swipe_id", currentDisplayedProfile.getSwipeId());
+            
+
             intent.putExtras(this.getIntent());
             startActivity(intent);
             showNext(swipes);
@@ -237,8 +233,6 @@ public class MainActivity extends AppCompatActivity {
             //update swipes
             showNext(swipes);
         }
-
-
     }
 
     public void answerNo(View view) {
@@ -358,13 +352,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Queue<Profile> q) {
 
-
-
-
-
         }
-
-
     }
 
 
@@ -416,15 +404,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-
-
-
-
-
         }
-
-
     }
-
-
 }

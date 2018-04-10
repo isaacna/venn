@@ -90,6 +90,7 @@ public class MessagesActivity extends AppCompatActivity {
     }
 
         new RetrieveMessagesTask(this).execute(in.getIntExtra("swipe_id",-1));
+        messageBox.setText("");
     }
 
     public void unmatch(View view) {

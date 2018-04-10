@@ -47,23 +47,14 @@ public class CreateAccountActivity extends AppCompatActivity {
     ImageView ImageViewHolder;
 
     //EditText imageName;
-
     ProgressDialog progressDialog;
-
     Intent intent;
-
     public static final int RequestPermissionCode = 1;
-
     Bitmap bitmap;
-
     boolean check = true;
-
     String GetImageNameFromEditText;
-
     String ImageNameFieldOnServer = "image_name";
-
     String ImagePathFieldOnServer = "image_path";
-
     String ImageUploadPathOnSever = "http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/testingTestily.php";
 
     private static int RESULT_LOAD_IMG = 1;
@@ -183,14 +174,11 @@ public class CreateAccountActivity extends AppCompatActivity {
     public void ImageUploadToServerFunction(){
 
         ByteArrayOutputStream byteArrayOutputStreamObject ;
-
         byteArrayOutputStreamObject = new ByteArrayOutputStream();
 
         // Converting bitmap image to jpeg format, so by default image will upload in jpeg format.
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStreamObject);
-
         byte[] byteArrayVar = byteArrayOutputStreamObject.toByteArray();
-
         final String ConvertImage = Base64.encodeToString(byteArrayVar, Base64.DEFAULT);
 
         class AsyncTaskUploadClass extends AsyncTask<Void,Void,String> {
@@ -203,18 +191,14 @@ public class CreateAccountActivity extends AppCompatActivity {
 
             @Override
             protected void onPreExecute() {
-
                 super.onPreExecute();
-
                 // Showing progress dialog at image upload time.
                 progressDialog = ProgressDialog.show(CreateAccountActivity.this,"Image is Uploading","Please Wait",false,false);
             }
 
             @Override
             protected void onPostExecute(String string1) {
-
                 super.onPostExecute(string1);
-
                 // Dismiss the progress dialog after done uploading.
                 progressDialog.dismiss();
 

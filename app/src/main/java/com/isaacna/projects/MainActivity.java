@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             catch (Exception e) {
                 System.out.println("fucked");
             }
-
+        System.out.println("puff1");
             showNext(swipes);
         }
 
@@ -88,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
         //new MainActivity().RetrieveMessagesTask(this).execute(getIntent().getIntExtra("swipe_id",-1));
         getSwipes();
         TextView text = findViewById(R.id.otherName);
+        System.out.println("puff2");
+        if(currentDisplayedProfile==null) {
+            showNext(swipes);
+        }
         if(text.getText().toString().equals("No more candidates")){
             showNext(swipes);
         }
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         };
-        timer.schedule(doRetriveMessages, 0, 10000);
+        timer.schedule(doRetriveMessages, 0, 100000);
     }
 
     public void viewProfile(View view) {
@@ -219,6 +223,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void removeDuplicates(Profile p) {
+        System.out.println("puff3");
+        System.out.println(p.getUserId());
+        if(swipes.isEmpty()) {
+            return;
+        }
+
         for(Profile prof : swipes) {
             if(prof.getSwipeId()==p.getSwipeId()) {
                 swipes.remove(prof);

@@ -40,7 +40,7 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
 
-//    int occurences;
+    //    int occurences;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     Queue<Profile> swipes; //global
     Profile currentDisplayedProfile; //to keep track of displayed profile
@@ -55,12 +55,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //if logged in
-            //if swipes is empty
-                //call getSwipes (query) - load data into swipes
-                //showNext
+        //if swipes is empty
+        //call getSwipes (query) - load data into swipes
+        //showNext
 
         if (true) {
-           // swipes = new Queue<Profile>();
+            // swipes = new Queue<Profile>();
             getSwipes();
             System.out.println("returned from get swipes - " + swipes.size());
             try {
@@ -75,23 +75,19 @@ public class MainActivity extends AppCompatActivity {
             catch (Exception e) {
                 System.out.println("fucked");
             }
-        System.out.println("puff1");
+
             showNext(swipes);
         }
 
         makeABunchOfCalls();
 
-       // new RetrieveTask(this).execute();
+        // new RetrieveTask(this).execute();
     }
 
     private void makeOneCall(){
         //new MainActivity().RetrieveMessagesTask(this).execute(getIntent().getIntExtra("swipe_id",-1));
         getSwipes();
         TextView text = findViewById(R.id.otherName);
-        System.out.println("puff2");
-        if(currentDisplayedProfile==null) {
-            showNext(swipes);
-        }
         if(text.getText().toString().equals("No more candidates")){
             showNext(swipes);
         }
@@ -118,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         };
-        timer.schedule(doRetriveMessages, 0, 100000);
+        timer.schedule(doRetriveMessages, 0, 10000);
     }
 
     public void viewProfile(View view) {
@@ -188,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
             currentDisplayedProfile=toDisp;//keep track of the current displayed profile (since it is removed from queue)
-           return true;
+            return true;
         }
         else{
             //display no profiles left
@@ -206,34 +202,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-   // public Queue<Profile> getSwipes(){
-   public void getSwipes() {
+    // public Queue<Profile> getSwipes(){
+    public void getSwipes() {
         //Queue<Profile> profiles = new LinkedList<Profile>(); //queue is an interface of linkedlist in java
 
         System.out.println("getting the swipes");
         try {
-           swipes =  new GetCandidatesTask(this).execute().get();
+            swipes =  new GetCandidatesTask(this).execute().get();
 
         }
 
         catch (Exception e) {
 
         }
-       System.out.println("got the swipes");
+        System.out.println("got the swipes");
     }
 
     public void removeDuplicates(Profile p) {
-        System.out.println("puff3");
-        System.out.println(p.getUserId());
-        if(swipes.isEmpty()) {
-            return;
-        }
 
-        for(Profile prof : swipes) {
-            if(prof.getSwipeId()==p.getSwipeId()) {
-                swipes.remove(prof);
+        Queue<Profile> profiles = new LinkedList<Profile>();
+
+        for(Profile profile: swipes){
+            if(p.getSwipeId() != profile.getSwipeId()){
+                profiles.add(profile);
             }
         }
+
+        swipes = profiles;
+
     }
 
 
@@ -327,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
             try {
 
                 //response is a json array'
-               // System.out.println("hitting the execute");
+                // System.out.println("hitting the execute");
                 JSONArray swipesJson = new JSONArray(result.toString()); //get
                 System.out.println("success");
                 System.out.println("JSON STRING: " + swipesJson.toString());

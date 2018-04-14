@@ -69,6 +69,9 @@ public class CreateAccountActivity extends AppCompatActivity {
         UploadImageToServer = (Button) findViewById(R.id.button2);
        // imageName = Integer.toString(getIntent().getIntExtra("userID",0));// (EditText) findViewById(R.id.editText);
 
+
+        Button btn=(Button)findViewById(R.id.button2);
+        btn.setVisibility(View.GONE);
         //EnableRuntimePermissionToAccessCamera();
 
 //        CaptureImageFromCamera.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +95,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }//asdf
 
     private void getImageFromAlbum(){
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
@@ -102,6 +105,8 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     public void findImage(View view){
         getImageFromAlbum();
+        Button btn=(Button)findViewById(R.id.button2);
+        btn.setVisibility(View.VISIBLE);
     }
 
     public void sendImageAfterUpload(View view){

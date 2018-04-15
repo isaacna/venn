@@ -182,7 +182,9 @@ public class CreateAccountActivity extends AppCompatActivity {
         byteArrayOutputStreamObject = new ByteArrayOutputStream();
 
         // Converting bitmap image to jpeg format, so by default image will upload in jpeg format.
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStreamObject);
+        Bitmap smallMap = getResizedBitmap(bitmap,500);
+        smallMap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStreamObject);
+
         byte[] byteArrayVar = byteArrayOutputStreamObject.toByteArray();
         final String ConvertImage = Base64.encodeToString(byteArrayVar, Base64.DEFAULT);
 
@@ -350,6 +352,22 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
 }

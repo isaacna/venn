@@ -47,6 +47,16 @@ public class MatchesActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void editParams(View view) {
+        Intent intent = new Intent(this, EditCommParamsActivity.class);
+//        intent.putExtra("comm_id", getIntent().getIntExtra("comm_id",-1));
+        intent.putExtras(getIntent());
+        System.out.println("user id should be passed here");
+        System.out.println(getIntent().getIntExtra("user_id", 0));
+        startActivity(intent);
+    }
+
+
     //leave community and go back to communities page
     public void leaveCommunity(View vew) {
         new LeaveCommunityTask(this).execute();

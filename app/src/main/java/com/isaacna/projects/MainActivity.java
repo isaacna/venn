@@ -79,8 +79,9 @@ public class MainActivity extends AppCompatActivity {
             showNext(swipes);
         }
 
-        makeABunchOfCalls();
-
+//        while(swipes.isEmpty()) { //only make calls if swipes is empty
+            makeABunchOfCalls();
+//        }
         // new RetrieveTask(this).execute();
     }
 
@@ -103,15 +104,17 @@ public class MainActivity extends AppCompatActivity {
         TimerTask doRetriveMessages = new TimerTask() {
             @Override
             public void run() {
-                handler.post(new Runnable() {
-                    public void run() {
-                        try {
-                            makeOneCall();
-                        } catch (Exception e) {
-                            System.out.println("uh oh spag get the o");
+                if(swipes.isEmpty()) {
+                    handler.post(new Runnable() {
+                        public void run() {
+                            try {
+                                makeOneCall();
+                            } catch (Exception e) {
+                                System.out.println("uh oh spag get the o");
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         };
         timer.schedule(doRetriveMessages, 0, 10000);

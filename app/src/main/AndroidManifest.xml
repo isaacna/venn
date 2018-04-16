@@ -44,10 +44,12 @@
         <!-- <activity android:name=".createCommunity" /> -->
         <activity android:name=".CreateCommunityActivity" />
         <activity android:name=".JustCreatedActivity" />
-        <activity android:name=".MessagesActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".MessagesActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".CreateAccountActivity" />
-        <activity android:name=".CreateAccountActivityOriginal"></activity>
+        <activity android:name=".CreateAccountActivityOriginal" />
+        <activity android:name=".EditCommParamsActivity"></activity>
     </application>
 
 </manifest>

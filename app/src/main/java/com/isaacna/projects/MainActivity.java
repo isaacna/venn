@@ -200,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
             img.setImageBitmap(null);
             otherName.setText("No more candidates");
             otherBio.setText("");
+            currentDisplayedProfile=null;
 
             return false;
         }
@@ -238,34 +239,36 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void answerYes(View view) {
-        removeDuplicates(currentDisplayedProfile);
-        new UpdateSwipeTask().execute(getIntent().getIntExtra("userID",0),currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),1,currentDisplayedProfile.getSwiperNum());
-        if(currentDisplayedProfile.getAnswer()==1) { //candidate answered yes to you
+        if(currentDisplayedProfile!=null) {
+            removeDuplicates(currentDisplayedProfile);
+            new UpdateSwipeTask().execute(getIntent().getIntExtra("userID", 0), currentDisplayedProfile.getCommunityId(), currentDisplayedProfile.getUserId(), 1, currentDisplayedProfile.getSwiperNum());
+            if (currentDisplayedProfile.getAnswer() == 1) { //candidate answered yes to you
 
-            Intent intent = new Intent(this, MessagesActivity.class);
-            intent.putExtras(this.getIntent());
+                Intent intent = new Intent(this, MessagesActivity.class);
+                intent.putExtras(this.getIntent());
 
-            intent.putExtra("other_id",currentDisplayedProfile.getUserId());
-            intent.putExtra("other_name", currentDisplayedProfile.getFirstName() + " " + currentDisplayedProfile.getLastName());
-            intent.putExtra("swipe_id", currentDisplayedProfile.getSwipeId());
+                intent.putExtra("other_id", currentDisplayedProfile.getUserId());
+                intent.putExtra("other_name", currentDisplayedProfile.getFirstName() + " " + currentDisplayedProfile.getLastName());
+                intent.putExtra("swipe_id", currentDisplayedProfile.getSwipeId());
 
 
-            startActivity(intent);
+                startActivity(intent);
 
-            showNext(swipes);
-        }
-
-        else { //candidate answered no or hasn't answered yet
-            //update swipes
-            showNext(swipes);
+                showNext(swipes);
+            } else { //candidate answered no or hasn't answered yet
+                //update swipes
+                showNext(swipes);
+            }
         }
     }
 
     public void answerNo(View view) {
         //update swipes
-        removeDuplicates(currentDisplayedProfile);
-        new UpdateSwipeTask().execute(getIntent().getIntExtra("userID",0),currentDisplayedProfile.getCommunityId(),currentDisplayedProfile.getUserId(),0,currentDisplayedProfile.getSwiperNum());
-        showNext(swipes);
+        if(currentDisplayedProfile!=null) {
+            removeDuplicates(currentDisplayedProfile);
+            new UpdateSwipeTask().execute(getIntent().getIntExtra("userID", 0), currentDisplayedProfile.getCommunityId(), currentDisplayedProfile.getUserId(), 0, currentDisplayedProfile.getSwiperNum());
+            showNext(swipes);
+        }
     }
 
 

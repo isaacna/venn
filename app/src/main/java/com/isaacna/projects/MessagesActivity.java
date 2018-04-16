@@ -47,6 +47,12 @@ public class MessagesActivity extends AppCompatActivity {
         new RetrieveMessagesTask(this).execute(getIntent().getIntExtra("swipe_id",-1));
     }
 
+    public void viewProfile(View view) {
+        Intent in = new Intent(this, MatchProfileActivity.class);
+        in.putExtras(getIntent());
+        startActivity(in);
+    }
+
     private void makeABunchOfCalls() {
         final Handler handler = new Handler();
         Timer timer = new Timer();

@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             TextView otherBio = findViewById(R.id.otherBio);
 //            TextView otherCommunity = findViewById(R.id.otherCommunity);
 
-            String nameAndBio = toDisp.getFirstName() + " " + toDisp.getLastName() + ": " + toDisp.getWhichCommunity();
+            String nameAndBio = toDisp.getFirstName() + ": " + toDisp.getWhichCommunity();
             otherName.setText(nameAndBio);
             otherBio.setText(toDisp.getBioInfo());
 
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                     //intent.putExtras(getIntent());
 
                     //put swipes info to intent
-                    intent.putExtra("candidate_name", toDisp.getFirstName() + " " + toDisp.getLastName());
+                    intent.putExtra("candidate_name", toDisp.getFirstName());
 //                    intent.putExtra("candidate_pic", toDisp.getProfilePic());
                     intent.putExtra("candidate_bio", toDisp.getBioInfo());
                     intent.putExtra("f1",toDisp.getF1());
@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtras(this.getIntent());
 
                 intent.putExtra("other_id", currentDisplayedProfile.getUserId());
-                intent.putExtra("other_name", currentDisplayedProfile.getFirstName() + " " + currentDisplayedProfile.getLastName());
+                intent.putExtra("other_name", currentDisplayedProfile.getFirstName());
                 intent.putExtra("swipe_id", currentDisplayedProfile.getSwipeId());
 
 

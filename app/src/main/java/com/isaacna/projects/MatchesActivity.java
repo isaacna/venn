@@ -131,7 +131,7 @@ public class MatchesActivity extends AppCompatActivity {
                 //go through json array and add the id and name of each match to the map
                 for(int i=0; i < matchesJson.length(); i++) {
                     JSONObject jsonobject = matchesJson.getJSONObject(i);
-                    String fullName = (jsonobject.getString("first_name") + " " + jsonobject.getString("last_name")); //concatenate names
+                    String fullName = (jsonobject.getString("first_name")); //concatenate names
 
                     int user_id = jsonobject.getInt("user_id");
                     int swipe_id = jsonobject.getInt("swipe_id"); //get corresponding swipe_id

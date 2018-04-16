@@ -129,6 +129,11 @@ public class MessagesActivity extends AppCompatActivity {
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 
 
+                //put up here so it happens regardless of message content
+                String otherName = in.getStringExtra("other_name"); //name of the person you are messaging (from matches activity)
+                TextView otherTextView = findViewById(R.id.messageName);
+                otherTextView.setText(otherName); //set who your messaging's name
+
                 while ((line = br.readLine()) != null) {
                     result.append(line);
                     response += result.toString();
@@ -159,9 +164,7 @@ public class MessagesActivity extends AppCompatActivity {
                 System.out.println("Messages down below");
                 System.out.println(messagesJson.toString());
 
-                String otherName = in.getStringExtra("other_name"); //name of the person you are messaging (from matches activity)
-                TextView otherTextView = findViewById(R.id.messageName);
-                otherTextView.setText(otherName); //set who your messaging's name
+
 //                otherTextView.setTextSize(30);
 
                 //go through json array and add the id and name of each match to the map

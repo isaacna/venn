@@ -1,7 +1,6 @@
 package com.isaacna.projects;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -9,62 +8,45 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
+public class SwipesForCommunityActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
-
-    //    int occurences;
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     Queue<Profile> swipes; //global
     Profile currentDisplayedProfile; //to keep track of displayed profile
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        //if logged in
-        //if swipes is empty
-        //call getSwipes (query) - load data into swipes
-        //showNext
+        setContentView(R.layout.activity_swipes_for_community);
 
         if (true) {
-            // swipes = new Queue<Profile>();
             getSwipes();
             System.out.println("returned from get swipes - " + swipes.size());
+
 
             showNext(swipes);
         }
 
-            makeABunchOfCalls();
+        makeABunchOfCalls();
 
     }
 
@@ -80,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
     private void makeABunchOfCalls() {
         final Handler handler = new Handler();
         Timer timer = new Timer();
-
-        //MainActivity activity = this;
 
 
         TimerTask doRetriveMessages = new TimerTask() {
@@ -103,17 +83,17 @@ public class MainActivity extends AppCompatActivity {
         timer.schedule(doRetriveMessages, 0, 10000);
     }
 
-    public void viewProfile(View view) {
-        Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtras(this.getIntent());
-        startActivity(intent);
-    }
-
-    public void viewCommunities(View view) {
-        Intent intent = new Intent(this, CommunitiesActivity.class);
-        intent.putExtras(this.getIntent());
-        startActivity(intent);
-    }
+//    public void viewProfile(View view) {
+//        Intent intent = new Intent(this, ProfileActivity.class);
+//        intent.putExtras(this.getIntent());
+//        startActivity(intent);
+//    }
+//
+//    public void viewCommunities(View view) {
+//        Intent intent = new Intent(this, CommunitiesActivity.class);
+//        intent.putExtras(this.getIntent());
+//        startActivity(intent);
+//    }
 
     public boolean showNext(Queue<Profile> profiles){
 
@@ -138,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             RelativeLayout rl = (RelativeLayout)findViewById(R.id.mainLayout);
             rl.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, CandidateActivity.class);
+                    Intent intent = new Intent(SwipesForCommunityActivity.this, CandidateActivity.class);
                     //intent.putExtras(getIntent());
 
                     //put swipes info to intent
@@ -189,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("getting the swipes");
         try {
-            swipes =  new GetCandidatesTask(this).execute().get();
+            swipes =  new SwipesForCommunityActivity.GetCandidatesTask(this).execute().get();
 
         }
 
@@ -218,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
     public void answerYes(View view) {
         if(currentDisplayedProfile!=null) {
             removeDuplicates(currentDisplayedProfile);
-            new UpdateSwipeTask().execute(getIntent().getIntExtra("userID", 0), currentDisplayedProfile.getCommunityId(), currentDisplayedProfile.getUserId(), 1, currentDisplayedProfile.getSwiperNum());
+            new SwipesForCommunityActivity.UpdateSwipeTask().execute(getIntent().getIntExtra("userID", 0), currentDisplayedProfile.getCommunityId(), currentDisplayedProfile.getUserId(), 1, currentDisplayedProfile.getSwiperNum());
             if (currentDisplayedProfile.getAnswer() == 1) { //candidate answered yes to you
 
                 Intent intent = new Intent(this, MessagesActivity.class);
@@ -243,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         //update swipes
         if(currentDisplayedProfile!=null) {
             removeDuplicates(currentDisplayedProfile);
-            new UpdateSwipeTask().execute(getIntent().getIntExtra("userID", 0), currentDisplayedProfile.getCommunityId(), currentDisplayedProfile.getUserId(), 0, currentDisplayedProfile.getSwiperNum());
+            new SwipesForCommunityActivity.UpdateSwipeTask().execute(getIntent().getIntExtra("userID", 0), currentDisplayedProfile.getCommunityId(), currentDisplayedProfile.getUserId(), 0, currentDisplayedProfile.getSwiperNum());
             showNext(swipes);
         }
     }
@@ -270,10 +250,10 @@ public class MainActivity extends AppCompatActivity {
         private Exception exception;
         String response = "";
         StringBuilder result = new StringBuilder();
-        public MainActivity activity;
+        public SwipesForCommunityActivity activity;
 
         //this constructor is to pass in the communitiesactivity to access within onpostexecute
-        public GetCandidatesTask(MainActivity a) {
+        public GetCandidatesTask(SwipesForCommunityActivity a) {
             this.activity = a;
         }
 
@@ -281,7 +261,8 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 int user_id = activity.getIntent().getIntExtra("userID",0); //will later set to session varible
-                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/getAllCandidates.php?user_id=" + user_id);
+                int comm_id = activity.getIntent().getIntExtra("comm_id", 0);
+                URL url = new URL("http://ec2-34-215-159-222.us-west-2.compute.amazonaws.com/alt/getCandidatesForComm.php?user_id=" + user_id + "&comm_id=" + comm_id);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 //System.out.println(urls);

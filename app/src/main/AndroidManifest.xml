@@ -49,7 +49,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".CreateAccountActivity" />
         <activity android:name=".CreateAccountActivityOriginal" />
-        <activity android:name=".EditCommParamsActivity"></activity>
+        <activity android:name=".EditCommParamsActivity" />
+        <activity android:name=".SwipesForCommunityActivity"></activity>
     </application>
 
 </manifest>

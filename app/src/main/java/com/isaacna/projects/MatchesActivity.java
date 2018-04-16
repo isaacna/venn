@@ -56,6 +56,11 @@ public class MatchesActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void swipesForComm(View view) {
+        Intent intent = new Intent(this, SwipesForCommunityActivity.class);
+        intent.putExtras(getIntent());
+        startActivity(intent);
+    }
 
     //leave community and go back to communities page
     public void leaveCommunity(View vew) {

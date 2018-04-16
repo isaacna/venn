@@ -51,7 +51,9 @@
         <activity android:name=".CreateAccountActivityOriginal" />
         <activity android:name=".EditCommParamsActivity" />
         <activity android:name=".SwipesForCommunityActivity" />
-        <activity android:name=".MatchProfileActivity"></activity>
+        <activity android:name=".MatchProfileActivity" />
+        <activity android:name=".changePhotoActivity" />
+        <activity android:name=".EditActivity"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         new AsyncTaskLoadImage(this).execute();
 //        Intent intent = new Intent(this, p);
+    }
+
+    public void goToChange(View view){
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtras(this.getIntent());
+        startActivity(intent);
     }
 
     public class AsyncTaskLoadImage  extends AsyncTask<String, String, Profile> {

@@ -96,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(LoginActivity.this,"Logging in","Please Wait",false,false);
-
         }
 
 
@@ -114,11 +113,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 while ((line = br.readLine()) != null) {
+
                     result.append(line);
                     response += result.toString();
                     System.out.println(response);
                     //communitiesList.add(result.toString());
 
+                }
+
+                if(response.equals("") || response==null) {
+                    progressDialog.dismiss();
                 }
                 br.close();
             } catch (IOException e) {

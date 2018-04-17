@@ -2,6 +2,7 @@ package com.isaacna.projects;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -31,13 +33,17 @@ import java.util.TimerTask;
 
 public class MessagesActivity extends AppCompatActivity {
 
+    public static int lastLength = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
 
         Intent in = getIntent();
+        String otherName = in.getStringExtra("other_name"); //name of the person you are messaging (from matches activity)
+        TextView otherTextView = findViewById(R.id.messageName);
 
+        otherTextView.setText(otherName); //set who your messaging's name
        // new RetrieveMessagesTask(this).execute(in.getIntExtra("swipe_id",-1)); //get swipe id and pass to retrieve messages task
 
         makeABunchOfCalls();
@@ -136,9 +142,11 @@ public class MessagesActivity extends AppCompatActivity {
 
 
                 //put up here so it happens regardless of message content
-                String otherName = in.getStringExtra("other_name"); //name of the person you are messaging (from matches activity)
-                TextView otherTextView = findViewById(R.id.messageName);
-                otherTextView.setText(otherName); //set who your messaging's name
+//                String otherName = in.getStringExtra("other_name"); //name of the person you are messaging (from matches activity)
+//                TextView otherTextView = findViewById(R.id.messageName);
+//
+//                otherTextView.setText(otherName); //set who your messaging's name
+
 
                 while ((line = br.readLine()) != null) {
                     result.append(line);
@@ -192,15 +200,28 @@ public class MessagesActivity extends AppCompatActivity {
 //                    System.out.println("body: " + messageBody);
                     if (receiver_id == otherId) {//message goes to to other person
 //                        System.out.println("should go on the right");
-                        tv.setBackgroundColor(Color.GRAY);
+                        tv.setBackgroundColor(Color.LTGRAY);
+                        tv.setTextColor(Color.BLACK);
                         tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT); //align message to right
                     }
                     else { //messages goes to you
 //                        System.out.println("should go on the left");
-                        tv.setBackgroundColor(Color.CYAN);
+                        tv.setBackgroundColor(Color.BLUE);
+                        tv.setTextColor(Color.WHITE);
                         tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT); //align message right
                     }
                     ln.addView(tv);
+                }
+                TextView tv = new TextView(activity);
+                tv.setText("\n");
+                tv.setId(Integer.MAX_VALUE);
+                tv.setTextSize(8);
+                ln.addView(tv);
+                if (messagesJson.length() > lastLength){
+                    ScrollView scroll = findViewById(R.id.scrollView3);
+                   // scroll.scrollTo(0, scroll.getBottom());
+                    scroll.fullScroll(ScrollView.FOCUS_DOWN);
+                    lastLength = messagesJson.length();
                 }
             }
             catch (JSONException e){

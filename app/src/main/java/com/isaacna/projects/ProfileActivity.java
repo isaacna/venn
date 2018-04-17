@@ -31,6 +31,12 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goToMain(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtras(this.getIntent());
+        startActivity(intent);//s
+    }
+
     public class AsyncTaskLoadImage  extends AsyncTask<String, String, Profile> {
         private final static String TAG = "AsyncTaskLoadImage";
         private ProfileActivity activity;

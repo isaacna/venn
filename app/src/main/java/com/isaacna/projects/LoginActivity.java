@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute() {
-            progressDialog.dismiss(); 
+            progressDialog.dismiss();
         }
 
     }

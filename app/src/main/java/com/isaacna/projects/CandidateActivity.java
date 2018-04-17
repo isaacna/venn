@@ -38,7 +38,7 @@ public class CandidateActivity extends AppCompatActivity {
             String val2 = intent.getStringExtra("f2") + ": " + intent.getStringExtra("p2");
             p2.setText(val2);
             p2.setVisibility(View.VISIBLE);
-        }
+        }//ouhouhoijs
         else{
             p2.setVisibility(View.GONE);
         }

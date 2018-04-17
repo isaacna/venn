@@ -56,16 +56,36 @@ public class MainActivity extends AppCompatActivity {
         //call getSwipes (query) - load data into swipes
         //showNext
 
-        if (true) {
+            boolean jank = getIntent().getBooleanExtra("doUpdate", false);
+
+
+
+        if (!jank) {
             // swipes = new Queue<Profile>();
             getSwipes();
             System.out.println("returned from get swipes - " + swipes.size());
 
             showNext(swipes);
+            makeABunchOfCalls();
         }
+        else{
+            boolean yes = getIntent().getBooleanExtra("sayYes", false);
+            getSwipes();
+            System.out.println("returned from get swipes - " + swipes.size());
 
+            showNext(swipes);
+                    if(yes){
+                        Button btn = findViewById(R.id.button4);
+                        btn.performClick();
+                    }
+                    else{
+                        Button btn = findViewById(R.id.button3);
+                        btn.performClick();
+                    }
+            getIntent().putExtra("doUpdate", false);
             makeABunchOfCalls();
 
+        }
     }
 
     private void makeOneCall(){
@@ -140,7 +160,18 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, CandidateActivity.class);
                     //intent.putExtras(getIntent());
-
+                    intent.putExtras(getIntent());
+                    if(intent.hasExtra("candidate_name")){
+                        intent.removeExtra("candidate_name");
+                        intent.removeExtra("candidate_bio");
+                        intent.removeExtra("f1");
+                        intent.removeExtra("f2");
+                        intent.removeExtra("f3");
+                        intent.removeExtra("p1");
+                        intent.removeExtra("p2");
+                        intent.removeExtra("p3");
+                        intent.removeExtra("candidate_pic");
+                    }
                     //put swipes info to intent
                     intent.putExtra("candidate_name", toDisp.getFirstName());
 //                    intent.putExtra("candidate_pic", toDisp.getProfilePic());
@@ -158,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                     byte[] byteArray = stream.toByteArray();
                     intent.putExtra("candidate_pic",byteArray);
 
-                    intent.putExtras(getIntent());
+
                     startActivity(intent);
                 }
             });

@@ -40,6 +40,7 @@ public class JoinCommActivity extends AppCompatActivity {
         in.putExtras(getIntent().getExtras());
         in.removeExtra("comm_id");//remove to prevent arduiblo error
         in.removeExtra("community");//remove to prevent arduiblo error
+        in.putExtra("doUpdate", false);
         startActivity(in);
     }
 

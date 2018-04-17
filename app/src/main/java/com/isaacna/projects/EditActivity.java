@@ -20,6 +20,8 @@ public class EditActivity extends AppCompatActivity {
     }
 
     public void goToBio(View view){
-
+        Intent intent = new Intent(this, EditBioActivity.class);
+        intent.putExtras(this.getIntent());
+        startActivity(intent);
     }
 }

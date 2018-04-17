@@ -53,7 +53,8 @@
         <activity android:name=".SwipesForCommunityActivity" />
         <activity android:name=".MatchProfileActivity" />
         <activity android:name=".changePhotoActivity" />
-        <activity android:name=".EditActivity"></activity>
+        <activity android:name=".EditActivity" />
+        <activity android:name=".EditBioActivity"></activity>
     </application>
 
 </manifest>

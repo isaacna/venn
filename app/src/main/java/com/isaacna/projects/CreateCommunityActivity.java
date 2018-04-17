@@ -63,9 +63,9 @@ public class CreateCommunityActivity extends AppCompatActivity {
                     result.append(line);
                     response += result.toString();
                     System.out.println(response);
-
                 }
                 br.close();
+                return response;
 
             }
             catch (IOException e) {
@@ -75,8 +75,18 @@ public class CreateCommunityActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String result) {
-            Intent intent = new Intent(this.activity, MainActivity.class);
+            Intent intent = new Intent(this.activity, JoinCommActivity.class);
             intent.putExtras(activity.getIntent());
+
+            EditText holder = findViewById(R.id.comName);//.getText().toString();
+            String name = holder.getText().toString();
+            holder = findViewById(R.id.editText2);
+            String desc = holder.getText().toString();
+
+            intent.putExtra("comm_id", Integer.parseInt(result));
+            intent.putExtra("community", name); //pass in community to remember for that match page
+            intent.putExtra("comm_desc", desc);
+
             startActivity(intent);
         }
 

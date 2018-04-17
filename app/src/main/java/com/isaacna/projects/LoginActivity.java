@@ -110,8 +110,6 @@ public class LoginActivity extends AppCompatActivity {
                 //System.out.println(urls);
                 String line;
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-
-
                 while ((line = br.readLine()) != null) {
 
                     result.append(line);
@@ -120,7 +118,6 @@ public class LoginActivity extends AppCompatActivity {
                     //communitiesList.add(result.toString());
 
                 }
-
                 if(response.equals("") || response==null) {
                     progressDialog.dismiss();
                 }

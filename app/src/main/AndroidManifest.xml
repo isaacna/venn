@@ -46,7 +46,7 @@
         <activity android:name=".JustCreatedActivity" />
         <activity
             android:name=".MessagesActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".CreateAccountActivity" />
         <activity android:name=".CreateAccountActivityOriginal" />
         <activity android:name=".EditCommParamsActivity" />

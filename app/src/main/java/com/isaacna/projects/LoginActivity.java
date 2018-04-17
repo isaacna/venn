@@ -1,5 +1,6 @@
 package com.isaacna.projects;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText email_form, pw_form;
     Button loginB;
     Intent in;
+    ProgressDialog progressDialog;
+
 
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String Email = "emailKey";
@@ -90,6 +93,13 @@ public class LoginActivity extends AppCompatActivity {
             this.activity = a;
         }
 
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(LoginActivity.this,"Logging in","Please Wait",false,false);
+
+        }
+
+
         protected Profile doInBackground(String... params) {
 
             try {
@@ -143,5 +153,10 @@ public class LoginActivity extends AppCompatActivity {
             }
             return p;
         }
+
+        protected void onPostExecute() {
+            progressDialog.dismiss(); 
+        }
+
     }
 }
